@@ -66,5 +66,9 @@ exploit(multi/http/tomcat_mgr_upload)
 
 this worked
 
+then typed shell to get shell and ran following command
+ find . -name flag.txt
+
+found flag!
 
 
