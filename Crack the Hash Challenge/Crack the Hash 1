@@ -54,6 +54,62 @@ Question 6) F09EDCB1FCEFC6DFB23DC3505A882655FF77375ED8AA2D1C13F640FCCC2D0C85
 
 Crackstation worked - SHA-256 -> paule
 
+----------
+
+Question 7) 1DFECA0C002AE40B8619ECF94819CC1B
+
+Crackstation worked - NTLM - n63umy8lkf4i
+
+-----------
+
+Question 8)
+
+
+$6$aReallyHardSalt$6WKUTqzq.UQQmrm0p/T7MPpMbGNnzXPMAXi4bJMl9be.cfi3/qxIf.hsGpS41BqMhSrHVXgMpdjS6xeKZAs02.
+Salt = aReallyHardSalt
+
+the hash.txt file =:
+$6$aReallyHardSalt$6WKUTqzq.UQQmrm0p/T7MPpMbGNnzXPMAXi4bJMl9be.cfi3/qxIf.hsGpS41BqMhSrHVXgMpdjS6xeKZAs02.
+
+hashid = SHA-512 CRYPT
+
+hashcat -m 1800 hash.txt filtered_wordlist
+
+Because the answer for this question shows as 6 characters long we will create another filtered wordlist like before:
+grep -E '^[a-zA-Z]{6}$' /usr/share/wordlists/rockyou.txt > filtered_wordlist.txt 
+(takes a minute to complete as wordlist is pretty large)
+
+And when complete, run the same command but with --show flag at the end. (Probably a better way of doing this, look into it)
+
+
+-------------
+
+Question 9)
+
+
+
+Hash: e5d8870e5bdd26602cab8dbe07a942c8669e56d6
+
+Salt: tryhackme
+
+
+hashid: hashid e5d8870e5bdd26602cab8dbe07a942c8669e56d6:tryhackme
+
+[+] SHA-1 
+[+] Double SHA-1 
+[+] RIPEMD-160 
+[+] Haval-160 
+[+] Tiger-160 
+[+] HAS-160 
+[+] LinkedIn 
+[+] Skein-256(160) 
+[+] Skein-512(160) 
+[+] SMF \u2265 v1.1 
+
+
+hashcat -m 110 hash.txt filtered_wordlist.txt
+
+
 
 
 
