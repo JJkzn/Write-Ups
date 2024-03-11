@@ -34,8 +34,6 @@ Tried hashid first:
 
 bcrypt is option 3200 on hashcat
 
-hashcat -a 0 -m 3200 $2y$12$Dwt1BZj6pcyc3Dy1FWZ5ieeUznr71EeNkJkUlypTsgbX1H68wsRom 
-
 Filtered four letter characters from the rockyou wordlist into a new wordlist
 
 grep -E '^[a-zA-Z]{4}$' rockyou.txt > filtered_wordlist.txt
