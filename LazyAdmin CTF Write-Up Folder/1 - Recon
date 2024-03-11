@@ -195,3 +195,17 @@ sudo /usr/bin/perl /home/itguy/backup.pl
 it will produce an error, HOWEVER if you check your other netcat listener you should see that you now have root access!
 
 read root flag!
+
+---------------------------------------
+
+ALTERNATIVE EXPLOIT
+
+Think back to the original nmap enumeration we did way back at the beginning of this box. There were two ports open: port 80 for the webserver, and port 22 for SSH.
+
+-> Use SSH Port 
+
+We already have a root shell, so this should be a dawdle.
+
+We still don’t know the root password, and changing it would be a slight giveaway to the sysadmin that their server had been hacked.
+
+The first thing that I tried to do here was copying my own public key into the /root/.ssh/authorized_keys file on the remote machine (having to make the file in the process). This worked, letting me straight into the remote machine when I tried SSHing into it from my local computer:
