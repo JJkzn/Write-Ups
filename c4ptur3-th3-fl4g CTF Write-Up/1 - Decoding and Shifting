@@ -58,3 +58,17 @@ Answer = unpack this bcd
 Encoding = BCD (Binary Coded Decimal)
 
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+LS0tLS0gLi0tLS0gLi0tLS0gLS0tLS0gLS0tLS0gLi0tLS0gLi0tLS0gLS0tLS0KLS0tL...     (this one went on for ages, too long to copy)
+
+Answer = let's make this a bit tricker...
+
+Encoding = Was a lot harder for this one, we had to use multiple decoding in cyber chef in the following descending order (so first listed is first used)
+
+1 - Base64
+2 - Morse Code
+3 - Binary
+4 - ROT47
+5 - Decimal
