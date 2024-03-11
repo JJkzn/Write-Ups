@@ -1,0 +1,14 @@
+Was given a .jpg file for the task
+
+Try putting the image through cyberchef as well
+
+First of all ran the 'strings' tool on the file:
+
+strings meme.jpg
+
+
+Gave first flag.
+
+After this, ran 'binwalk' on the .jpg file and got second flag.
+
+binwalk -e meme.jpg
