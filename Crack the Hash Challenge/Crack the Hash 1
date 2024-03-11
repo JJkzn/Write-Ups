@@ -36,7 +36,7 @@ bcrypt is option 3200 on hashcat
 
 Filtered four letter characters from the rockyou wordlist into a new wordlist
 
-grep -E '^[a-zA-Z]{4}$' rockyou.txt > filtered_wordlist.txt
+grep -E '^[a-zA-Z0-9]{6}$' wordlist.txt > filtered_wordlist.txt
 
 Used this for the hashcat crack
 
@@ -76,7 +76,7 @@ hashid = SHA-512 CRYPT
 hashcat -m 1800 hash.txt filtered_wordlist
 
 Because the answer for this question shows as 6 characters long we will create another filtered wordlist like before:
-grep -E '^[a-zA-Z]{6}$' /usr/share/wordlists/rockyou.txt > filtered_wordlist.txt 
+grep -E '^[a-zA-Z0-9]{6}$' wordlist.txt > filtered_wordlist.txt
 (takes a minute to complete as wordlist is pretty large)
 
 And when complete, run the same command but with --show flag at the end. (Probably a better way of doing this, look into it)
