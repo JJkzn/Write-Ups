@@ -23,3 +23,15 @@ Question 2) CBFDAC6008F9CAB4083784CBD1874F76618D2A97 - Identified with crackstat
 Question 3) 1C8BFE8F801D79745C4631D09FFF36C82AA37FC4CCE4FC946683D7B336B63032 - Identified with crackstation.net
   Type - SHA-256
   Cracked Password - letmein
+
+Question 4) $2y$12$Dwt1BZj6pcyc3Dy1FWZ5ieeUznr71EeNkJkUlypTsgbX1H68wsRom
+
+Tried hashid first:
+
+[+] Blowfish(OpenBSD) 
+[+] Woltlab Burning Board 4.x 
+[+] bcrypt 
+
+bcrypt is option 3200 on hashcat
+
+hashcat -a 0 -m 3200 $2y$12$Dwt1BZj6pcyc3Dy1FWZ5ieeUznr71EeNkJkUlypTsgbX1H68wsRom /usr/share/wordlists/rockyou.txt
