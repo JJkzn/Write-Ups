@@ -34,4 +34,23 @@ Tried hashid first:
 
 bcrypt is option 3200 on hashcat
 
-hashcat -a 0 -m 3200 $2y$12$Dwt1BZj6pcyc3Dy1FWZ5ieeUznr71EeNkJkUlypTsgbX1H68wsRom /usr/share/wordlists/rockyou.txt
+hashcat -a 0 -m 3200 $2y$12$Dwt1BZj6pcyc3Dy1FWZ5ieeUznr71EeNkJkUlypTsgbX1H68wsRom 
+
+Filtered four letter characters from the rockyou wordlist into a new wordlist
+
+grep -E '^[a-zA-Z]{4}$' rockyou.txt > filtered_wordlist.txt
+
+Used this for the hashcat crack
+
+hashcat -m 3200 hash.txt filtered_wordlist.txt --show
+
+----------
+
+Question 5) 279412f945939ba78ce0758d3fd83daa
+
+Crackstation worked - md4 -> eternity22
+
+
+
+
+
