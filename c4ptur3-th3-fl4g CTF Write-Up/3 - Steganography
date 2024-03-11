@@ -1,0 +1,16 @@
+Steganography is the practice of concealing a file, message, image, or video within another file, message, image, or video.
+
+Downloaded the task file.
+
+Used the following website - https://futureboy.us/stegano/decinput.html
+
+Answer = Spaghettisteg
+
+--
+
+However, could have also used the following linux command line tool:
+
+steghide extract -sf stegosteg.jpg
+
+
+
