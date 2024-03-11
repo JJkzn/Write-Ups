@@ -57,3 +57,20 @@ by OJ Reeves (@TheColonial) & Christian Mehlmauer (@_FireFart_)
 /server-status (Status: 403)
 
 
+After this we enumerate the subdomain of /content/
+
+gobuster dns -d http://10.10.150.67/content/ -w /usr/share/wordlists/SecLists/Discovery/DNS/subdomains-top1million-5000.txt  
+
+
+===============================================================
+2024/03/11 13:33:08 Starting gobuster
+===============================================================
+/images (Status: 301)
+/js (Status: 301)
+/inc (Status: 301)
+/as (Status: 301)
+/_themes (Status: 301)
+/attachment (Status: 301)
+===============================================================
+
+
