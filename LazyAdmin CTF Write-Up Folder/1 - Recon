@@ -137,5 +137,47 @@ nikto -h http://10.10.150.67:80/content/as/
 + End Time:           2024-03-11 13:54:37 (GMT0) (14 seconds)
 ---------------------------------------------------------------------------
 
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Downloaded the sql file from the /inc/ folder found with gobuster
+Searched for the string "passwd" and found a string that looked like a hash.
+
+42f749ade7f9e195bf475f37a44cafcb
+
+Used this on crackstation to find the password - passwd123
+
+This file also contained the string - manager - which we used as the username for the /as/ login portal.
+
+
+----------
+
+IN ADMIN PORTAL SETTINGS TAB:
+Database Setting
+
+    Database : mysql
+    Database Host : localhost
+    Database Port : 3306
+    Database Account : rice
+    Database Password : randompass
+
+Database Name
+website
+Database Prefix
+v
+
+
+
+-------------
+
+Trying to upload shell.php didnt work - eventually assumed there must be a filter so changed the extension to shell.phtml - THIS WORKED!
+
+navigated to /home/itguy/
+
+found the user.txt flag!
+
+cat mysql_login.txt
+rice:randompass
+
+
 
 
