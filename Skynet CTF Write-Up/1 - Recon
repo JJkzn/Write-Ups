@@ -87,7 +87,7 @@ Reconnecting with SMB1 for workgroup listing.
 
 ran enum4linux against machine but got pretty much same info
 
-smbclient //10.10.108.75/milesdyson        - access denied - lets look for password
+smbclient -U milesdyson //10.10.108.75/milesdyson        - access denied - lets look for password
 
 
 smbclient //10.10.108.75/anonymous         - contained the following file:
@@ -223,5 +223,22 @@ balls have 0 to me to me to me to me to me to me to me to me to
 you i i i everything else . . . . . . . . . . . . . .
 balls have zero to me to me to me to me to me to me to me to me to
 
+
+------------------------------------------------------------------------
+
+NOW WE CAN LOG IN TO THE SMB SHARE OF MILESDYSON
+
+smbclient -U milesdyson //10.10.108.75/milesdyson
+
+found the file important.txt within the directory /notes/ on the share.
+
+cat important.txt
+
+1. Add features to beta CMS /45kra24zxs28v3yd
+2. Work on T-800 Model 101 blueprints
+3. Spend more time with my wife
+
+
+Maybe /45kra24zxs28v3yd is a directory?
 
 
