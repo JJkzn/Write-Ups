@@ -142,3 +142,27 @@ find / -perm -u=s -type f 2>/dev/null
 /bin/ping6
 /bin/umount
 
+
+Desktop$ find / -type f -name "*.bak" 2>/dev/null
+/var/backups/group.bak
+/var/backups/shadow.bak
+/var/backups/passwd.bak
+/var/backups/gshadow.bak
+
+
+sudo -l
+[sudo] password for lin: 
+Matching Defaults entries for lin on bountyhacker:
+    env_reset, mail_badpass,
+    secure_path=/usr/local/sbin\:/usr/local/bin\:/usr/sbin\:/usr/bin\:/sbin\:/bin\:/snap/bin
+
+User lin may run the following commands on bountyhacker:
+    (root) /bin/tar
+
+We can see that we can run the tar bin as root!
+
+Knowing this, we check https://gtfobins.github.io/gtfobins/tar/ and see that we can use sudo to get root priv!
+
+With this, we escalate to root and read root.txt
+
+
