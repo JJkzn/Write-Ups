@@ -161,3 +161,10 @@ by OJ Reeves (@TheColonial) & Christian Mehlmauer (@_FireFart_)
 /squirrelmail (Status: 301)
 /server-status (Status: 403)
 
+
+------>
+
+Okay, let's review. We have a wordlist containing passwords and we know that ssh is open on port 22. Let's try a password attack using our wordlist against port 22 using milesdyson as the username.
+
+
+
