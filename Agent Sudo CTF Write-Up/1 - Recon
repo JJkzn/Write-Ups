@@ -190,6 +190,8 @@ Sudoers file grammar version 46
 Sudoers I/O plugin version 1.8.21p2
 
 
-With this we can see the sudo version - we search for an exploit and find one for root escalation!
+With this we can see the sudo version - we search for an exploit and find one for root escalation:
+
+https://www.exploit-db.com/exploits/47502
 
 We create a python file of the exploit as james, run it and get root along with root flag!!
