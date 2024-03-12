@@ -35,3 +35,77 @@ Network Distance: 1 hop
 TCP Sequence Prediction: Difficulty=253 (Good luck!)
 IP ID Sequence Generation: All zeros
 Service Info: OSs: Unix, Linux; CPE: cpe:/o:linux:linux_kernel
+
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+gobuster dir -u http://10.10.20.226:80 -w /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt
+===============================================================
+Gobuster v3.0.1
+by OJ Reeves (@TheColonial) & Christian Mehlmauer (@_FireFart_)
+===============================================================
+[+] Url:            http://10.10.20.226:80
+[+] Threads:        10
+[+] Wordlist:       /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt
+[+] Status codes:   200,204,301,302,307,401,403
+[+] User Agent:     gobuster/3.0.1
+[+] Timeout:        10s
+===============================================================
+2024/03/12 15:18:07 Starting gobuster
+===============================================================
+/island (Status: 301)
+/server-status (Status: 403)
+===============================================================
+2024/03/12 15:18:25 Finished
+===============================================================
+
+
+gobuster dir -u http://10.10.20.226:80/island -w /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt
+===============================================================
+Gobuster v3.0.1
+by OJ Reeves (@TheColonial) & Christian Mehlmauer (@_FireFart_)
+===============================================================
+[+] Url:            http://10.10.20.226:80/island
+[+] Threads:        10
+[+] Wordlist:       /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt
+[+] Status codes:   200,204,301,302,307,401,403
+[+] User Agent:     gobuster/3.0.1
+[+] Timeout:        10s
+===============================================================
+2024/03/12 15:19:02 Starting gobuster
+===============================================================
+/2100 (Status: 301)
+===============================================================
+2024/03/12 15:19:33 Finished
+===============================================================
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+NAVIGATING TO /ISLAND :
+
+ Ohhh Noo, Don't Talk...............
+
+I wasn't Expecting You at this Moment. I will meet you there
+
+You should find a way to Lian_Yu as we are planed. The Code Word is:
+vigilante
+
+NAVIGATING TO /ISLAND/2100
+
+Note: You can avail your .ticket here but how?
+
+so searched for ticket extension with gobuster
+
+gobuster dir -u http://10.10.20.226:80/island/2100 -w /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt -x ticket
+
+and find green_arrow.ticket
+
+This is just a token to get into Queen's Gambit(Ship)
+
+
+RTy8yhBQdscX
+
+
+decode from base58:
+!#th3h00d
