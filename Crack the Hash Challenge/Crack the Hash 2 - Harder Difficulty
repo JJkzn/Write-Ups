@@ -12,3 +12,43 @@ Umbraco HMAC-SHA1 [HC: 24800]
 keccak-256 JtR Code = raw-keccak-256
 
 keccak-256 hashcat code = 17800
+
+
+-------------------------------------------------------------------
+WORDLISTS
+
+git clone https://github.com/BlackArch/wordlistctl.git
+python3 wordlistctl/wordlistctl.py -h
+
+
+wordlistctl search rockyou
+
+-l           - search into local archives instead of remote ones?
+
+python3 wordlistctl.py list -g usernames
+
+------------------------------------------------------------------
+
+CRACKING
+
+
+Depending of your distribution, the John configuration may be located at /etc/john/john.conf and/or /usr/share/john/john.conf. To locate the JtR install directory run locate john.conf, then create john-local.conf in the same directory (in my case/usr/share/john/john-local.conf) and create our rules in here.
+
+Let's use the top 10 000 most used password list from SecLists (/usr/share/wordlists/SecLists/Passwords/Common-Credentials/10k-most-common.txt) and generate a simple border mutation by appending all 2 digits combinations at the end of each password.
+Let's edit /usr/share/john/john-local.conf and add a new rule:
+
+[List.Rules:THM01]
+$[0-9]$[0-9]
+
+
+
+
+john hash.txt --format=raw-sha1 --wordlist=/usr/share/wordlists/SecLists/Passwords/Common-Credentials/10k-most-common.txt --rules=THM01 
+Using default input encoding: UTF-8
+Loaded 1 password hash (Raw-SHA1 [SHA1 256/256 AVX2 8x])
+Warning: no OpenMP support for this hash type, consider --fork=2
+Press 'q' or Ctrl-C to abort, almost any other key for status
+moonligh56       (?)
+1g 0:00:00:00 DONE (2024-03-12 14:59) 11.11g/s 6281Kp/s 6281Kc/s 6281KC/s hotrats56..jayhawks56
+Use the "--show --format=Raw-SHA1" options to display all of the cracked passwords reliably
+Session completed. 
