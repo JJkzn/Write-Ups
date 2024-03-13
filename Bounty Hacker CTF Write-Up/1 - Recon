@@ -1,8 +1,8 @@
 RECON
 
-NMAP first
+NMAP first (ONLY AGGRESSIVE SCANNING WHEN DOING CTF)
 
-nmap -v -A -p1-2000 -T5 10.10.255.159 -o results.txt
+nmap -v -A -p1-2000 -T5 10.10.255.159 -o results.txt  
 
 Nmap scan report for ip-10-10-255-159.eu-west-1.compute.internal (10.10.255.159)
 Host is up (0.00061s latency).
