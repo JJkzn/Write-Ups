@@ -33,3 +33,36 @@ Network Distance: 1 hop
 TCP Sequence Prediction: Difficulty=261 (Good luck!)
 IP ID Sequence Generation: All zeros
 Service Info: OS: Linux; CPE: cpe:/o:linux:linux_kernel
+
+------------------------------------------------------------------------------------------------------------------------------------------
+
+gobuster dir -u http://10.10.138.170:80 -w /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt
+===============================================================
+Gobuster v3.0.1
+by OJ Reeves (@TheColonial) & Christian Mehlmauer (@_FireFart_)
+===============================================================
+[+] Url:            http://10.10.138.170:80
+[+] Threads:        10
+[+] Wordlist:       /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt
+[+] Status codes:   200,204,301,302,307,401,403
+[+] User Agent:     gobuster/3.0.1
+[+] Timeout:        10s
+===============================================================
+2024/03/13 18:39:57 Starting gobuster
+===============================================================
+/img (Status: 301)
+/downloads (Status: 301)
+/aboutus (Status: 301)
+/admin (Status: 301)
+/css (Status: 301)
+/http%3A%2F%2Fwww (Status: 301)
+/http%3A%2F%2Fyoutube (Status: 301)
+/http%3A%2F%2Fblogs (Status: 301)
+/http%3A%2F%2Fblog (Status: 301)
+/**http%3A%2F%2Fwww (Status: 301)
+/http%3A%2F%2Fcommunity (Status: 301)
+/http%3A%2F%2Fradar (Status: 301)
+/http%3A%2F%2Fjeremiahgrossman (Status: 301)
+/http%3A%2F%2Fweblog (Status: 301)
+/http%3A%2F%2Fswik (Status: 301)
+
