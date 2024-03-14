@@ -1,0 +1,9 @@
+
+
+Will try the found passwords against the /squirrelmail/ directory.
+We will use Burp Suite to conduct this attack.
+
+We set up the Burp Suite proxy on the squirrelmail login page. We send this web request to Intruder and we use milesdyson as the username and set the "secretkey" password parameter as a payload.
+We then load our log1.txt file into Burp Suite Intruder Payloads option and conduct the attack.
+
+One of the passwords - cyborg007haloterminator - returns a status code of 302, showing that this is the correct password for milesdyson!
