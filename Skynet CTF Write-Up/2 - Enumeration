@@ -1,0 +1,72 @@
+SMB ENUMERATION
+
+Discovered shared directories via smbclient and found both an anonymous share and one belonging to an employee named Miles Dyson.
+Downloaded files including one that contained passwords.
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+smbclient -L 10.10.108.75
+WARNING: The "syslog" option is deprecated
+Enter WORKGROUP\root's password: 
+
+	Sharename       Type      Comment
+	---------       ----      -------
+	print$          Disk      Printer Drivers
+	anonymous       Disk      Skynet Anonymous Share
+	milesdyson      Disk      Miles Dyson Personal Share
+	IPC$            IPC       IPC Service (skynet server (Samba, Ubuntu))
+Reconnecting with SMB1 for workgroup listing.
+
+	Server               Comment
+	---------            -------
+
+	Workgroup            Master
+	---------            -------
+	WORKGROUP            SKYNET
+
+
+smbclient -U milesdyson //10.10.108.75/milesdyson        - access denied - lets look for password
+
+
+smbclient //10.10.108.75/anonymous         - contained the following file:
+
+cat attention.txt
+A recent system malfunction has caused various passwords to be changed. All skynet employees are required to change their password after seeing this.
+-Miles Dyson
+
+
+and the /logs/ directory with three log txt files which we also downloaded to our attacking machine.
+
+- Only one of these log files had any contents which are displayed below:
+cat log1.txt
+cyborg007haloterminator
+terminator22596
+terminator219
+terminator20
+terminator1989
+terminator1988
+terminator168
+terminator16
+terminator143
+terminator13
+terminator123!@#
+terminator1056
+terminator101
+terminator10
+terminator02
+terminator00
+roboterminator
+pongterminator
+manasturcaluterminator
+exterminator95
+exterminator200
+dterminator
+djxterminator
+dexterminator
+determinator
+cyborg007haloterminator
+avsterminator
+alonsoterminator
+Walterminator
+79terminator6
+1996terminator
+------------------------------------->
+Given the contents of this log file, we can assume that they are the passwords for skynet employees. We can use this as a wordlist going forward.
