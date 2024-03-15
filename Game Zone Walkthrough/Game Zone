@@ -60,6 +60,7 @@ CRACKING PASSWORD HASH WITH JOHN THE RIPPER
 SAVE HASH TO TXT FILE
 john hash.txt --wordlist=/usr/share/wordlists/rockyou.txt --format=Raw-SHA256
 
+password = videogamer124
 
 ssh agent47@10.10.47.238
 
@@ -69,5 +70,57 @@ user.txt found
 ==============================================================================================================================================================================================================================
 
 EXPOSING SERVICES WITH REVERSE SSH TUNNELS
+
+Reverse SSH port forwarding specifies that the given port on the remote server host is to be forwarded to the given host and port on the local side.
+
+-L is a local tunnel (YOU <-- CLIENT). If a site was blocked, you can forward the traffic to a server you own and view it. 
+For example, if imgur was blocked at work, you can do ssh -L 9000:imgur.com:80 user@example.com. Going to localhost:9000 on your machine, will load imgur traffic using your other server.
+
+-R is a remote tunnel (YOU --> CLIENT). You forward your traffic to the other server for others to view. Similar to the example above, but in reverse.
+
+WE WILL USE A TOOL CALLED ss TO INVESTIGATE SOCKETS RUNNING ON THE HOST
+If we run ss -tulpn it will tell us what socket connections are running
+Argument	Description
+-t	Display TCP sockets
+-u	Display UDP sockets
+-l	Displays only listening sockets
+-p	Shows the process using the socket
+-n	Doesn't resolve service names
+:
+Netid  State      Recv-Q Send-Q Local Address:Port               Peer Address:Port              
+udp    UNCONN     0      0         *:68                    *:*                  
+udp    UNCONN     0      0         *:10000                 *:*                  
+tcp    LISTEN     0      80     127.0.0.1:3306                  *:*                  
+tcp    LISTEN     0      128       *:10000                 *:*                  
+tcp    LISTEN     0      128       *:22                    *:*                  
+tcp    LISTEN     0      128      :::80                   :::*                  
+tcp    LISTEN     0      128      :::22                   :::*        
+
+QUESTION - HOW MANY TCP SOCKETS ARE RUNNING? = 5
+
+We can see that a service running on port 10000 is blocked via a firewall rule from the outside (we can see this from the IPtable list). However, Using an SSH Tunnel we can expose the port to us (locally)!
+
+From our local machine, run ssh -L 10000:localhost:10000 <username>@<ip>
+
+Once complete, in your browser type "localhost:10000" and you can access the newly-exposed webserver.
+ssh -L 10000:localhost:10000 agent47@10.10.47.238
+
+Will ask for password.
+
+Then type localhost:10000 into your web browser
+
+Login to the portal with your previous obtained credentials
+
+QUESTION - WHAT IS THE NAME OF THE EXPOSED CMS? = webmin
+
+QUESTION - WHAT IS THE CMS VERSION? = 1.580 
+
+
+==============================================================================================================================================================================================================================
+
+PRIVILEGE ESCALATION WITH METASPLOIT
+
+Using the CMS dashboard version, use Metasploit to find a payload to execute against the machine.
+
 
 
