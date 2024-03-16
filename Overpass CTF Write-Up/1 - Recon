@@ -140,3 +140,28 @@ So this private key is for SSH!
 
 we try logging in to ssh with it:
 ssh -i key james@10.10.78.246
+
+it doesnt work as we need a passphrase....
+
+SO LETS TRY USING JOHN TO STRIP SSL PROTECTION FROM THE KEY
+download ssh2john.py            - https://github.com/openwall/john/blob/bleeding-jumbo/run/ssh2john.py
+
+ssh2john key.rsa > key.txt              - preparing key file for john
+john --wordlist=/usr/share/wordlists/rockyou.txt key.txt
+
+WE GET THE PASSWORD! - james13
+
+We tried using the password with the key but got an annoying error:
+
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+@         WARNING: UNPROTECTED PRIVATE KEY FILE!          @
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+Permissions 0644 for 'key' are too open.
+It is required that your private key files are NOT accessible by others.
+This private key will be ignored.
+
+
+As it says that the permissions are too open we do a bit of research about key permissions,
+We find out that the keys need to be read-writable only by us so we run the following command:
+chmod 600 key
+
