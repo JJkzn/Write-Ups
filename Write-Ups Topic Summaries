@@ -14,4 +14,5 @@ HackPark - Web App Exploit/Windows Machine/Windows Priv.Esc/Windows Scheduler/Ms
 
 GAMEZONE - SQL Injection/SQLMAP/HASH CRACKING/Reverse SSH Port Forwarding!/Metasploit, Finding Correct Exploit and Setting Payloads!!!
 
-StartUp - 
+StartUp - UPLOADING A SHELL VIA FTP AND WEB BROWSER/DOWNLOADING WIRESHARK CAPTURE FILE FROM TARGET MACHINE TO GET CREDENTIALS/
+ADDING REVERSE SHELL CODE TO A SCRIPT THAT RUNS EVERY MINUTE
