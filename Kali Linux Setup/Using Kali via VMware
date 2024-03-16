@@ -16,3 +16,16 @@ password - kali
 
 HOW TO CONNECT TO TRYHACKME OPENVPN
 
+Download your openvpn file from access tab on tryhackme 
+
+Copy it over to the kali linux virtual machine
+
+sudo openvpn test.ovpn
+
+You should now be connected to TryHackMe Network
+
+We verify this by deploying a machine and navigating to the website to get a flag.
+
+However we are unable to access the wider internet as a whole on our kali linux vm so we must try and fix this.
+
+
