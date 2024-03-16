@@ -66,3 +66,77 @@ by OJ Reeves (@TheColonial) & Christian Mehlmauer (@_FireFart_)
 /http%3A%2F%2Fweblog (Status: 301)
 /http%3A%2F%2Fswik (Status: 301)
 
+
+=======================================================================================================================================================================
+
+we navigate to the /admin page
+SQL injection doesnt work
+We look in the web browser inspector and go to the network tab
+we reload the request and analyse
+we find an interesting piece of javascript code, login.js:
+
+sync function postData(url = '', data = {}) {
+    // Default options are marked with *
+    const response = await fetch(url, {
+        method: 'POST', // *GET, POST, PUT, DELETE, etc.
+        cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+        credentials: 'same-origin', // include, *same-origin, omit
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        redirect: 'follow', // manual, *follow, error
+        referrerPolicy: 'no-referrer', // no-referrer, *client
+        body: encodeFormData(data) // body data type must match "Content-Type" header
+    });
+    return response; // We don't always want JSON back
+}
+const encodeFormData = (data) => {
+    return Object.keys(data)
+        .map(key => encodeURIComponent(key) + '=' + encodeURIComponent(data[key]))
+        .join('&');
+}
+function onLoad() {
+    document.querySelector("#loginForm").addEventListener("submit", function (event) {
+        //on pressing enter
+        event.preventDefault()
+        login()
+    });
+}
+async function login() {
+    const usernameBox = document.querySelector("#username");
+    const passwordBox = document.querySelector("#password");
+    const loginStatus = document.querySelector("#loginStatus");
+    loginStatus.textContent = ""
+    const creds = { username: usernameBox.value, password: passwordBox.value }
+    const response = await postData("/api/login", creds)
+    const statusOrCookie = await response.text()
+    if (statusOrCookie === "Incorrect credentials") {            - THIS IS THE INTERESTING PIECE OF CODE
+        loginStatus.textContent = "Incorrect Credentials"
+        passwordBox.value=""
+    } else {
+        Cookies.set("SessionToken",statusOrCookie)
+        window.location = "/admin"
+    }
+}
+
+NOW LETS TRY SETTING OUR COOKIE MANUALLY TO MATCH THIS
+
+GO TO STORAGE IN INSPECTOR, GO TO COOKIES AND GENERATE A NEW ONE
+COOKIES FORMAT:
+Name = SessionToken
+Value = statusOrCookie
+Path = /admin
+
+We refresh the page and we are in!
+
+We are greeted with an RSA Private Key which we download along with a note:
+Since you keep forgetting your password, James, I've set up SSH keys for you.
+
+If you forget the password for this, crack it yourself. I'm tired of fixing stuff for you.
+Also, we really need to talk about this "Military Grade" encryption. - Paradox
+
+======================
+So this private key is for SSH!
+
+we try logging in to ssh with it:
+ssh -i key james@10.10.78.246
