@@ -26,6 +26,9 @@ You should now be connected to TryHackMe Network
 
 We verify this by deploying a machine and navigating to the website to get a flag.
 
-However we are unable to access the wider internet as a whole on our kali linux vm so we must try and fix this.
+!--- However we are unable to access the wider internet as a whole on our kali linux vm so we must try and fix this. (may be best to keep our virtual machine isolated from the internet to be honest...) --!
+
+LUCKILY we are able to serve an http server on port 80 - this should be enough to allow us to complete TryHackMe CTFs much easier now that we can do stuff like editing /etc/hosts on compromised machines
+to allow us to make their scripts download files from our machine instead :)
 
 
