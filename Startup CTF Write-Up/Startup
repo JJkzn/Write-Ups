@@ -4,7 +4,7 @@ We ask that you perform a thorough penetration test and try to own root. Good lu
 
 
 ===============================================================================================================================================================================================================================
-
+OKAY SO FIRST WE DO A QUICK NMAP SCAN JUST TO GET AN IDEA OF WHAT WE ARE DEALING WITH
 
 Nmap scan report for ip-10-10-119-44.eu-west-1.compute.internal (10.10.119.44)
 Host is up (0.00056s latency).
@@ -50,7 +50,7 @@ IP ID Sequence Generation: All zeros
 Service Info: OSs: Unix, Linux; CPE: cpe:/o:linux:linux_kernel
 
 -----------------
-
+INTERESTING - FTP IS OPEN AND ANONYMOUS LOGIN WITH NO PASSWORD IS ENABLED - WE ALSO HAVE A WEB SERVER RUNNING ON PORT 80
 ftp is open and set to anonymous
 
 ftp 10.10.119.44
@@ -62,32 +62,15 @@ notice.txt
 important.jpg
 
 notice.txt:
-Whoever is leaving these damn Among Us memes in this share, it IS NOT FUNNY. People downloading documents from our website will think we are a joke! Now I dont know who it is, but Maya is looking pretty sus.
-
-
-we run binwalk on the image
-binwalk important.jpg
-
-binwalk important.png
-
-DECIMAL       HEXADECIMAL     DESCRIPTION
---------------------------------------------------------------------------------
-0             0x0             PNG image, 735 x 458, 8-bit/color RGBA, non-interlaced
-57            0x39            Zlib compressed data, compressed
-
-Hmmm! Seems there is a zip archive hidden in the file
-
-binwalk -e important.jpg
-
-However, it wont let us extract it...
-
-Lets try another avenue....
+Whoever is leaving these damn Among Us memes in this share, it IS NOT FUNNY. 
+People downloading documents from our website will think we are a joke! Now I dont know who it is, but Maya is looking pretty sus.
 
 ===============================================================================================================================================
+NOW LETS HAVE A QUICK LOOK AT THAT WEB SERVER...
 
 navigate to the web server
 
-user dirbuster
+use dirbuster to find interesting directories....
 
 gobuster dir -w http://10.10.119.44:80 -u /usr/share/wordlists
 
@@ -125,6 +108,7 @@ Navigate to 10.10.119.44/files
 Click on the /ftp/shell.php file to execute
 
 WE NOW HAVE A SHELL!
+=====================================================================================================================================================================
 
 ls
 We find a file named recipe.txt that contains the following:
@@ -133,7 +117,7 @@ Someone asked what our main ingredient to our spice soup is today. I figured I c
 Now we can answer the first question - 
 What is the secret spicy soup recipe? = love
 
-Now lets upgrade to a python shell
+Now lets upgrade to a python shell            - PYTHON SHELL UPGRADE
 python -c 'import pty;pty.spawn("/bin/bash")'	
 
 We find a directory called Incidents
@@ -157,6 +141,8 @@ c4ntg3t3n0ughsp1c3
 su Lennie
 log in as Lennie
 get the user.txt flag!
+==================================================================================================================================================================
+NOW LETS FIND A WAY TO GET ROOT SHELL
 
 on Lennies /home/lennie/scripts directory we can find the script - planner.sh
 
