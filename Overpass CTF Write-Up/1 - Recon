@@ -165,3 +165,5 @@ As it says that the permissions are too open we do a bit of research about key p
 We find out that the keys need to be read-writable only by us so we run the following command:
 chmod 600 key
 
+
+We get the user flag!
