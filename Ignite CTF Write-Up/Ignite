@@ -1,1 +1,53 @@
+nmap -sS -sV -A 10.10.24.194
 
+Starting Nmap 7.60 ( https://nmap.org ) at 2024-03-16 23:26 GMT
+Nmap scan report for ip-10-10-24-194.eu-west-1.compute.internal (10.10.24.194)
+Host is up (0.00060s latency).
+Not shown: 999 closed ports
+PORT   STATE SERVICE VERSION
+80/tcp open  http    Apache httpd 2.4.18 ((Ubuntu))
+| http-robots.txt: 1 disallowed entry 
+|_/fuel/
+|_http-server-header: Apache/2.4.18 (Ubuntu)
+|_http-title: Welcome to FUEL CMS
+MAC Address: 02:5E:26:18:EF:67 (Unknown)
+
+
+go to port 80
+
+Fuel CMS page
+says to go to http://10.10.24.194/fuel to log in to admin
+with default credentials - admin:admin
+We are able to log in.
+
+
+
+Fuel CMS 1.4
+We search for an exploit and find one
+https://www.exploit-db.com/exploits/50477
+usage:
+python3 exploit.py -u http:/10.10.109.100
+
+we got commands
+
+we downloaded a reverse php shell and edited appropriately
+set up a netcat listener
+used wget on the exploited machine to grab the shell and then visited the web directory
+(remember /var/www/html isnt what you put into the web browser bar, just use the IP address instead:
+10.10.109.100/shell.php
+
+it worked!
+
+upgrade to python shell:
+python -c 'import pty;pty.spawn("/bin/bash")'
+
+we grabbed linenum.sh with wget and ran it on our exploited machine and output it into a text file
+we then copied this text file to /var/www/html and viewed it in the web browser for easier reading
+10.10.109.100/output.txt
+no luck with results
+
+Went back to fuel cms web page to check for the database conf path which was described there
+
+cat /var/www/html/fuel/application/config/database.php
+
+got root password
