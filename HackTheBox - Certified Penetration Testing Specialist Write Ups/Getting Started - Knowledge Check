@@ -116,3 +116,30 @@ Navigate to /home
 find the user dir - mrb3n
 cd there and find the user flag!
 
+As we are currently a meterpreter shell we dropped into the system shell with the command:
+shells
+
+Then upgraded to tty shell:
+python3 -c 'import pty;pty.spawn("/bin/bash")'      (python2 wasnt installed on system so had to use python3)
+
+
+==================
+PRIV. ESCALATION
+
+sudo -l to see what we can run as sudo:
+
+www-data@gettingstarted:/home/mrb3n$ sudo -l
+sudo -l
+Matching Defaults entries for www-data on gettingstarted:
+    env_reset, mail_badpass,
+    secure_path=/usr/local/sbin\:/usr/local/bin\:/usr/sbin\:/usr/bin\:/sbin\:/bin\:/snap/bin
+
+User www-data may run the following commands on gettingstarted:
+    (ALL : ALL) NOPASSWD: /usr/bin/php
+
+
+
+
+
+
+
