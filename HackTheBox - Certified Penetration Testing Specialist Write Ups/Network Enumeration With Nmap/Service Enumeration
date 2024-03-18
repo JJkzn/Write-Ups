@@ -47,3 +47,21 @@ Service Info: Host: NIX-NMAP-DEFAULT; OS: Linux; CPE: cpe:/o:linux:linux_kernel
 
 sudo nmap 10.129.225.66 -p- -sV -Pn -n --disable-arp-ping --packet-trace -oA 10.129.225.66_results      (saved results)
 
+
+port 31337 stands out most so lets scan it:
+sudo nmap 10.129.225.66 -p31337 -sV -Pn -n --disable-arp-ping --packet-trace
+
+PART OF THE SCAN REVEALS THE BANNER:
+HTB{pr0F7pDv3r510nb4nn3r}
+
+
+
+SOCK INFO [0.5750s] nsock_read(): Read request from IOD #1 [10.129.225.66:31337] (timeout: 6000ms) EID 18
+NSOCK INFO [6.5830s] nsock_trace_handler_callback(): Callback: READ TIMEOUT for EID 18 [10.129.225.66:31337]
+Service scan sending probe GetRequest to 10.129.225.66:31337 (tcp)
+NSOCK INFO [6.5830s] nsock_write(): Write request for 18 bytes to IOD #1 EID 27 [10.129.225.66:31337]
+NSOCK INFO [6.5830s] nsock_read(): Read request from IOD #1 [10.129.225.66:31337] (timeout: 5000ms) EID 34
+NSOCK INFO [6.5830s] nsock_trace_handler_callback(): Callback: WRITE SUCCESS for EID 27 [10.129.225.66:31337]
+NSOCK INFO [10.1050s] nsock_trace_handler_callback(): Callback: READ SUCCESS for EID 34 [10.129.225.66:31337] (31 bytes): 220 HTB{pr0F7pDv3r510nb4nn3r}..
+
+
