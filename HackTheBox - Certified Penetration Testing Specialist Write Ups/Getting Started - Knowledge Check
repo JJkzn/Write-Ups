@@ -77,3 +77,42 @@ Use crackstation. net:
 Password = Admin
 so we log in to the admin portal we found with the credentials - admin:admin
 
+WE ARE NOW INTO THE ADMIN CONFIG PORTAL!
+
+==================================================
+
+WEB FOOTHOLDING/EXPLOIT
+
+We navigate to the plugin tab to find somewhere we can insert a reverse shell 
+
+Nothing there
+Check the files tab
+We can upload files !
+
+However, the upload file button isn't working
+
+Lets search for a public exploit for the website content manager - Simple CMS
+
+We find one
+
+Using metasploit:
+search GetSimple
+
+we chose the exploit: 
+1  exploit/multi/http/getsimplecms_unauth_code_exec  2019-04-28       excellent  Yes    GetSimpleCMS Unauthenticated RCE
+
+
+We set options 
+
+RHOST - target
+LHOST - us
+
+nothing else needed configured
+
+ran exploit
+We got shell!
+
+Navigate to /home
+find the user dir - mrb3n
+cd there and find the user flag!
+
