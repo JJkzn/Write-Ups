@@ -24,3 +24,11 @@ Service Info: OSs: Unix, Linux; CPE: cpe:/o:linux:linux_kernel
 sudo nmap 10.10.56.214 -sUV --script=discovery
 
 
+
+
+go to main web page at port 80 -
+
+Look at source code of page - <!-- It is in the /diningRoom/ -->
+
+
+
