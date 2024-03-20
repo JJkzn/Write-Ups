@@ -1,1 +1,88 @@
+*CONTEXT*
 
+A company hired us to test their IT security defenses, including their IDS and IPS systems.
+Our client wants to increase their IT security and will, therefore, make specific improvements to their IDS/IPS systems after each successful test. 
+We do not know, however, according to which guidelines these changes will be made. Our goal is to find out specific information from the given situations.
+
+We are only ever provided with a machine protected by IDS/IPS systems and can be tested. 
+For learning purposes and to get a feel for how IDS/IPS can behave, we have access to a status web page at:
+
+http://<target>/status.php
+
+This page shows us the number of alerts.
+We know that if we receive a specific amount of alerts, we will be banned.
+Therefore we have to test the target system as quietly as possible.
+
+----
+
+CHALLENGE OBJECTIVE - Our client wants to know if we can identify which operating system their provided machine is running on. Submit the OS name as the answer. 
+
+-----
+
+Okay, so first we must determine the firewalls and their rules.
+
+sudo nmap 10.129.55.254 -p1-100 -sA -Pn -n --disable-arp-ping --packet-trace
+
+This resulted in no output from the target, all our requests were completely ignored and we registered about 50 alerts on the system. NOT GOOD!
+Let's rethink our strategy.
+
+--
+How about we do a scan on some common ports while utilising decoys to help obfuscate our own IP and scans.
+
+sudo nmap 10.129.55.254 -p21,22,80 -sS -Pn -n --disable-arp-ping --packet-trace -D RND:5
+
+Starting Nmap 7.94SVN ( https://nmap.org ) at 2024-03-20 18:35 EDT
+SENT (0.1001s) TCP 54.57.87.112:33174 > 10.129.55.254:21 S ttl=57 id=5001 iplen=44  seq=4213885062 win=1024 <mss 1460>
+SENT (0.1001s) TCP 42.242.198.21:33174 > 10.129.55.254:21 S ttl=41 id=5001 iplen=44  seq=4213885062 win=1024 <mss 1460>
+SENT (0.1002s) TCP 204.140.66.27:33174 > 10.129.55.254:21 S ttl=40 id=5001 iplen=44  seq=4213885062 win=1024 <mss 1460>
+SENT (0.1002s) TCP 161.67.141.29:33174 > 10.129.55.254:21 S ttl=44 id=5001 iplen=44  seq=4213885062 win=1024 <mss 1460>
+SENT (0.1002s) TCP 10.10.16.107:33174 > 10.129.55.254:21 S ttl=49 id=5001 iplen=44  seq=4213885062 win=1024 <mss 1460>
+SENT (0.1002s) TCP 55.97.79.198:33174 > 10.129.55.254:21 S ttl=46 id=5001 iplen=44  seq=4213885062 win=1024 <mss 1460>
+SENT (0.1003s) TCP 54.57.87.112:33174 > 10.129.55.254:22 S ttl=51 id=24277 iplen=44  seq=4213885062 win=1024 <mss 1460>
+SENT (0.1003s) TCP 42.242.198.21:33174 > 10.129.55.254:22 S ttl=52 id=24277 iplen=44  seq=4213885062 win=1024 <mss 1460>
+SENT (0.1003s) TCP 204.140.66.27:33174 > 10.129.55.254:22 S ttl=38 id=24277 iplen=44  seq=4213885062 win=1024 <mss 1460>
+SENT (0.1003s) TCP 161.67.141.29:33174 > 10.129.55.254:22 S ttl=54 id=24277 iplen=44  seq=4213885062 win=1024 <mss 1460>
+SENT (0.1003s) TCP 10.10.16.107:33174 > 10.129.55.254:22 S ttl=39 id=24277 iplen=44  seq=4213885062 win=1024 <mss 1460>
+SENT (0.1004s) TCP 55.97.79.198:33174 > 10.129.55.254:22 S ttl=54 id=24277 iplen=44  seq=4213885062 win=1024 <mss 1460>
+SENT (0.1004s) TCP 54.57.87.112:33174 > 10.129.55.254:80 S ttl=38 id=62134 iplen=44  seq=4213885062 win=1024 <mss 1460>
+SENT (0.1004s) TCP 42.242.198.21:33174 > 10.129.55.254:80 S ttl=37 id=62134 iplen=44  seq=4213885062 win=1024 <mss 1460>
+SENT (0.1004s) TCP 204.140.66.27:33174 > 10.129.55.254:80 S ttl=45 id=62134 iplen=44  seq=4213885062 win=1024 <mss 1460>
+SENT (0.1005s) TCP 161.67.141.29:33174 > 10.129.55.254:80 S ttl=53 id=62134 iplen=44  seq=4213885062 win=1024 <mss 1460>
+SENT (0.1006s) TCP 10.10.16.107:33174 > 10.129.55.254:80 S ttl=57 id=62134 iplen=44  seq=4213885062 win=1024 <mss 1460>
+SENT (0.1006s) TCP 55.97.79.198:33174 > 10.129.55.254:80 S ttl=46 id=62134 iplen=44  seq=4213885062 win=1024 <mss 1460>
+RCVD (0.1313s) TCP 10.129.55.254:21 > 10.10.16.107:33174 RA ttl=63 id=0 iplen=40  seq=0 win=0 
+RCVD (0.1594s) TCP 10.129.55.254:22 > 10.10.16.107:33174 SA ttl=63 id=0 iplen=44  seq=3130963971 win=64240 <mss 1338>
+RCVD (0.1595s) TCP 10.129.55.254:80 > 10.10.16.107:33174 SA ttl=63 id=0 iplen=44  seq=697120088 win=64240 <mss 1338>
+Nmap scan report for 10.129.55.254
+Host is up (0.038s latency).
+
+PORT   STATE  SERVICE
+21/tcp closed ftp
+22/tcp open   ssh
+80/tcp open   http
+
+Nmap done: 1 IP address (1 host up) scanned in 0.20 seconds
+
+
+HUZZAH! We got some real results this time and we didnt cause any IPS/IDS alerts to be registered by the system!
+Looking at these scan results we can see two open ports - 22 and 80. Let's focus on these two.
+
+------
+We used the following command to get the OS version name:
+
+sudo nmap 10.129.2.80 -p 80 -sS -Pn -n -sV --disable-arp-ping --packet-trace -D RND:5
+
+In this command we are targeting port 80 with a TCP-SYN scan, with disabled ICMP Echo requests, disabled DNS resolution, disabled ARP-Ping Requests, traced packets and a number of random Decoys - most of these commands are set to help obfuscate our scanning and prevent the IDS/IPS from banning us.
+
+The snipped section of the results shoiwng us the OS name are seen below:
+
+NSE: TCP 10.10.15.118:34836 > 10.129.2.80:80 | CLOSE
+NSOCK INFO [26.1240s] nsock_iod_delete(): nsock_iod_delete (IOD #8)
+NSOCK INFO [26.1240s] nsock_iod_delete(): nsock_iod_delete: SSL shutdown failed ((null)) on NSI 8
+Nmap scan report for 10.129.2.80
+Host is up (0.040s latency).
+
+PORT   STATE SERVICE VERSION
+80/tcp open  http    Apache httpd 2.4.29 ((Ubuntu))
+
+CHALLENGE OBJECTIVE COMPLETE!
