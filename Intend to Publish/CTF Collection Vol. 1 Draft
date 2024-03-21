@@ -42,6 +42,6 @@ Decoding data won't usually be this simple but this question serves as an excell
 
 As a little side note, sometimes when we are given encoded data it will actually be encoded multiple times! In these instances a single decoding operation won't be enough to reveal the decoded data.
 
-===================================================================
+====================================================================
 
 
