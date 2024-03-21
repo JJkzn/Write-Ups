@@ -1,1 +1,16 @@
+Install Ruby
+Install Jekyll
+Install Git
+Install Visual Studio Code
+
+We use the jekyll-theme-chirpy i.e Chirpy Theme for our website
+
+1 - Create a new repository with the publicly available Chirpy Starter - https://github.com/cotes2020/chirpy-starter
+    On the page click - "Use this template" then "Create a new repository".
+
+2 - As per standard for github pages I named my website - JJkzn.github.io
+
+3 - Clone your newly created repo to your local machine - git clone https://github.com/JJkzn/JJkzn.github.io.git
+
+4 - I then launched the newly cloned repo in Visual Studio Code - (Quickly accomplished by typing       code .       into the git CLI)
 
