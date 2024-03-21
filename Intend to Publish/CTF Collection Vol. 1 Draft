@@ -7,3 +7,41 @@ While I've done some CTFs in the past, like I said this is my first time providi
 Enough rambling! Let's begin.
 
 ====================================================================
+
+CTF Name - CTF Collection Vol. 1 Draft
+Platform - TryHackMe 
+Link - https://tryhackme.com/r/room/ctfcollectionvol1
+CTF Author - DesKel
+
+The Author provides the following note to set some context:
+
+"Just another random CTF room created by me. Well, the main objective of the room is to test your CTF skills. For your information, vol.1 consists of 20 tasks and all the challenges are extremely easy. Stay calm and Capture the flag. :)"
+
+"Note: All the challenges flag are formatted as THM{flag}, unless stated otherwise"
+
+--
+So, with this in mind, we're going to be covering a lot of different concepts today and from what we read in the author's note we can assume that this will be a great collection of CTFs for beginners. Perfect for a first write-up!
+
+--
+
+====================================================================
+
+QUESTION 1:
+
+Can you decode the following?
+
+VEhNe2p1NTdfZDNjMGQzXzdoM19iNDUzfQ==
+
+Now while this might appear like a bunch of gibberish, it's likely that we have an encrypted string here. A fantastic online resource for decoding data like this can be found at - https://gchq.github.io/CyberChef/.
+Our next step was to run the string through the previously mentioned CyberChef tool. CyberChef provides a wide range of operations it can perform on input you give it but a good place to start off is with a data format such as Base64. 
+Running the string of characters through CyberChef with the "From Base64" operation applied gives us the following output: THM{ju57_d3c0d3_7h3_b453}
+
+Looks like we've found our first flag.
+
+Decoding data won't usually be this simple but this question serves as an excellent example on how data can be encoded and decoded.
+
+As a little side note, sometimes when we are given encoded data it will actually be encoded multiple times! In these instances a single decoding operation won't be enough to reveal the decoded data.
+
+===================================================================
+
+
