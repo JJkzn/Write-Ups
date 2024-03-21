@@ -14,3 +14,7 @@ We use the jekyll-theme-chirpy i.e Chirpy Theme for our website
 
 4 - I then launched the newly cloned repo in Visual Studio Code - (Quickly accomplished by typing       code .       into the git CLI)
 
+5 - Build the dependencies for the site with the command - bundle        (in windows CMD LINE)
+
+
+
