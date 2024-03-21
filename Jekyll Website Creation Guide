@@ -16,5 +16,8 @@ We use the jekyll-theme-chirpy i.e Chirpy Theme for our website
 
 5 - Build the dependencies for the site with the command - bundle        (in windows CMD LINE)
 
+6 - Start the web server on your local host -        bundle exec jekyll serve        - find the web server at localhost:4000
+
+
 
 
