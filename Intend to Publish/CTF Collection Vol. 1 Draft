@@ -188,6 +188,14 @@ I accidentally messed up with this PNG file. Can you help me fix it? Thanks, ^^
 
 Hint: Check the PNG file header.
 
+This one is actually quite tricky as well if you don't know what you are doing. Luckily I had already dealt with magic numbers in a previous TryHackMe room that I had completed on File Upload Vulnerabilities.
+
+{insert explanation of magic numbers and how they can be used to obfsucate data}
+
+I opened the file in hexeditor on my Kali VM and looked up the file signature for .png files.
+We modified the first eight bytes of the file to match the file signatures of .png files.
+With this, the .png file was now correctly processed and we were given the flag - THM{y35_w3_c4n}
+
 ====================================================================
 
 QUESTION 11
@@ -198,7 +206,15 @@ hint: reddit
 
 I typed in "reddit thm" into google and it was the first post in google searched listed underneath the /tryhackme subreddit.
 
-Answer = 
+Answer =  THM{50c14l_4cc0un7_15_p4r7_0f_051n7}
+
+This question highlights the important of OSINT - another area that I can't wait to delve further into with future blog posts. 
+
+For those who don't know, OSINT stands for Open Source Intelligence and just basically means any data gathered from open sources. It's a huge rabbit hole though and that definition really doesn't paint the picture of just how much stuff you can do with it. The same can be said of all areas of Cyber Security, to be honest, it's one of the best aspects of this field. You'll forever be falling down that rabbit hole. :)
+
+
+====================================================================
+
 
 
 
