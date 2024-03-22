@@ -106,6 +106,28 @@ Selecting this and viewing the source shows that the RGB values for the text and
 
 Very easy one, but viewing the page source of html pages is a great habit to pick up when enumerating web apps. Sometimes web developers will leave behind important information or even credentials that can be used to establish footholds in engagements.
 
+====================================================================
+
+Question 5:
+
+"Such technology is quite reliable."
+
+Task file that we download is a QR code. We run the QR code through an online code reader - https://qrcoderaptor.com/
+The result is our flag: THM{qr_m4k3_l1f3_345y}
+
+Always be careful when dealing with unknown QR codes. (Obviously this one was safe.)
+
+====================================================================
+
+Question 6:
+
+"Both works, it's all up to you."
+
+I originally found the flag for this question via just reading the file with the cat command but I knew there had to be another way of doing it (the title of the question is a telling "Reverse it or read it?") and I didn't want to move on without taking the chance to fill in my gap in knowledge.
+
+So I began to research!
+
+
 
 
 
