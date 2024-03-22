@@ -127,6 +127,10 @@ I originally found the flag for this question via just reading the file with the
 
 So I began to research!
 
+First of all, I've never heard of a .hello file extension and research confirms that it must be something else. Using the 'file' command on the downloaded task file we find out that it's actually and ELF 64-bit file.
+ELF = Executable and Linkable Format i.e. an executable file like Windows .exe files.
+[INSERT SCREENSHOT HERE]
+
 
 
 
