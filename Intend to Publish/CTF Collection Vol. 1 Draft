@@ -131,6 +131,8 @@ First of all, I've never heard of a .hello file extension and research confirms 
 ELF = Executable and Linkable Format i.e. an executable file like Windows .exe files.
 [INSERT SCREENSHOT HERE]
 
+As we know the title of the question has the word "Reverse" in it, I decided to look at the "Reverse Engineering" section of applications on my Kali VM. A tool named "radare2" with the description "Advanced commandline hexadecimal editor, disassembler and debugger" stood out and I began to look into some ways to use the tool. Radare2 isn't a tool I've ever came across before and I hope to get the chance to delve further into this tool in the future, but anything else right now would be out of the scope of this write up!
+
 
 
 
