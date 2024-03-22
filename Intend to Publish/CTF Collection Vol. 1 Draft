@@ -93,6 +93,21 @@ It going to be over soon. Sleep my child.
 THM{500n3r_0r_l473r_17_15_0ur_7urn}
 
 
+====================================================================
+
+QUESTION 4:
+
+"Huh, where is the flag?"
+
+Hint = Highlight the text or check the html.
+
+With the hint in mind, we highlight the text to find the following: Huh, where is the flag? THM{wh173_fl46}
+Selecting this and viewing the source shows that the RGB values for the text and background section of the flag were all set to 255, rendering it white. Highlighting the area revealed it to us.
+
+Very easy one, but viewing the page source of html pages is a great habit to pick up when enumerating web apps. Sometimes web developers will leave behind important information or even credentials that can be used to establish footholds in engagements.
+
+
+
 
 
 
