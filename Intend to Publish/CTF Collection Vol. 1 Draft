@@ -180,8 +180,44 @@ We open the inspector console and check the html section for this question. We f
 
 (INSERT SCREEN HERE OF INSPECTOR RESULT)
 
+====================================================================
+
+QUESTION 10 
+
+I accidentally messed up with this PNG file. Can you help me fix it? Thanks, ^^ 
+
+Hint: Check the PNG file header.
+
+====================================================================
+
+QUESTION 11
+
+Some hidden flag inside Tryhackme social account.
+
+hint: reddit
+
+I typed in "reddit thm" into google and it was the first post in google searched listed underneath the /tryhackme subreddit.
+
+Answer = 
 
 
 
+====================================================================
+
+Question 19 
+
+Decode the following text.
+
+581695969015253365094191591547859387620042736036246486373595515576333693
+
+Hint = dec -> hex -> ascii
+
+This one was actually a bit tricky.
+
+1 - Cyberchef automatically converts the decimal input into a hexadecimal representation, skipping a step which I didn't realise at first.
+
+2 - I wasn't able to set the CyberChef "Delimiter" option on the "From Decimal" recipe to "None" which was required for the operation. 
+
+So I went to a different site  - https://www.rapidtables.com/convert/number/decimal-to-hex.html - and converted the original decimal input to hexadecimal and then decoded that from hex into ascii = THM{17_ju57_4n_0rd1n4ry_b4535}
 
 
