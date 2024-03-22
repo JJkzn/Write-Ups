@@ -137,6 +137,8 @@ r2 question6.hello
 izz
 {INSERT SCREENSHOT HERE TO ILLUSTRATE THE RADARE2 CLI}
 
+And with this we also obtain the flag!
+
 Radare2 isn't a tool I've ever came across before and I hope to get the chance to delve further into this tool in the future, but anything else right now would be out of the scope of this write up!
 
 
