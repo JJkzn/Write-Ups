@@ -44,4 +44,21 @@ As a little side note, sometimes when we are given encoded data it will actually
 
 ====================================================================
 
+QUESTION 2:
+
+"Meta! meta! meta! meta..................................."
+
+We are given a task file to download and a hint.
+
+Task File = Find_me_1577975566801.jpg
+Hint = EXIF tool
+
+First of all, because of the mention of the word meta, I assumed that the answer would be related to metadata. I quickly opened the file in a text editor and searched for the string "thm", which led to the discovery of the flag - THM{3x1f_0r_3x17}.
+
+I also looked at the hint after this (maybe I should have done that first, in retrospect) so decided use the chance to run the .jpg file through ExifTool, a widely used application that can easily pull a ton of metadata from a file, displayed into an easily readable format. 
+(MAYBE DO THIS IN KALI AND PROVIDE COMMAND - EITHER WAY MAKE SURE TO INSERT THE SCREENSHOT OF THE EXIFTOOL RESULTS IN THE FINAL MARKDOWN FILE.)
+
+
+====================================================================
+
 
