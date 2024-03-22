@@ -26,6 +26,7 @@ So, with this in mind, we're going to be covering a lot of different concepts to
 
 ====================================================================
 
+
 QUESTION 1:
 
 Can you decode the following?
@@ -60,5 +61,20 @@ I also looked at the hint after this (maybe I should have done that first, in re
 
 
 ====================================================================
+
+QUESTION 3:
+
+"Something is hiding. That's all you need to know."
+
+We are given a task file again and another hint.
+This time we make sure to read the hint first!
+
+Hint = Steghide
+
+We can assume that the steganography tool Steghide will be key to solving this question.
+For those who don't know, steganography is a technique used to conceal some kind of data, such as an image or message, within another file, e.g. a text file hidden within a .jpg image.
+
+Steghide comes preinstalled on Kali Linux, and as I am running my own Kali VM I copy the task file over and run the following command in my terminal:
+
 
 
