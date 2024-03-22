@@ -142,6 +142,44 @@ And with this we also obtain the flag!
 Radare2 isn't a tool I've ever came across before and I hope to get the chance to delve further into this tool in the future, but anything else right now would be out of the scope of this write up!
 
 
+====================================================================
+
+QUESTION 7:
+
+Can you decode it?
+
+3agrSy1CewF9v8ukcSkPSYm3oKUoByUpKG4L
+
+Hint: base58
+
+Easy one to run through CyberChef again
+
+Answer - THM{17_h45_l3553r_l3773r5}
+
+====================================================================
+
+QUESTION 8:
+
+Left, right, left, right... Rot 13 is too mainstream. Solve this
+
+MAF{atbe_max_vtxltk}
+
+Hint: Ceaser cipher
+
+We try ROT 13 brute force on CyberChef and get the flag as one of the possible combinations - THM{hail_the_caesar}
+
+====================================================================
+
+QUESTION 9
+
+No downloadable file, no ciphered or encoded text. Huh .......
+
+Hint: Check the html
+
+We open the inspector console and check the html section for this question. We find the flag with it's display set to none which prevented us from seeing it:
+
+(INSERT SCREEN HERE OF INSPECTOR RESULT)
+
 
 
 
