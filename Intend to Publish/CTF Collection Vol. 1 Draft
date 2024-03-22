@@ -74,7 +74,25 @@ Hint = Steghide
 We can assume that the steganography tool Steghide will be key to solving this question.
 For those who don't know, steganography is a technique used to conceal some kind of data, such as an image or message, within another file, e.g. a text file hidden within a .jpg image.
 
-Steghide comes preinstalled on Kali Linux, and as I am running my own Kali VM I copy the task file over and run the following command in my terminal:
+I am running my own Kali VM so I install it on that but you can install the tool on any Unix system with:  sudo apt install steghide
+
+*NOTE - If you are getting an error when trying to install steghide via Linux such as: "E: Unable to locate package steghide" then you likely need to update your package index with the command: sudo apt update
+
+
+
+I copy the task file over and run the following command in my terminal: steghide extract -sf Extinction_1577976250757.jpg
+
+In this command we are asking steghide to extract hidden data from the file Extinction_1577976250757.jpg via the -sf flag.
+
+We are prompted for a passphrase, and usually in CTFs we would have had to obtain that passphrase through other means, but in this beginner's CTF collection we find that entering nothing for the passphrase allows us to extract the hidden data, "Final_message.txt".
+
+This .txt file contains the following:
+
+It going to be over soon. Sleep my child.
+
+THM{500n3r_0r_l473r_17_15_0ur_7urn}
+
+
 
 
 
