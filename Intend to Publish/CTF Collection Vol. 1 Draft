@@ -215,6 +215,36 @@ For those who don't know, OSINT stands for Open Source Intelligence and just bas
 
 ====================================================================
 
+QUESTION 12
+
+What is this?
+
+++++++++++[>+>+++>+++++++>++++++++++<<<<-]>>>++++++++++++++.------------.+++++.>+++++++++++++++++++++++.<<++++++++++++++++++.>>-------------------.---------.++++++++++++++.++++++++++++.<++++++++++++++++++.+++++++++.<+++.+.>----.>++++.
+
+hint:   binaryfuck 
+
+Well, this is something new for me! This is what I love about CTFs - even when you do so-called 'easy' CTF's you're almost certain to learn something new. 
+I've never came across encoding like this and after some research (assisted by the provided hint) it turns out we're dealing with an example of the colorfully named "Brainfuck" code! 
+
+I put the code through an online interpreter - https://www.dcode.fr/en - and we find the answer to our question - THM{0h_my_h34d}
+
+
+====================================================================
+
+QUESTION 13
+
+Exclusive strings for everyone!
+
+S1: 44585d6b2368737c65252166234f20626d
+S2: 1010101010101010101010101010101010
+
+Hint: S1 XOR S2
+
+After researching "exclusive strings decode" on google we come across the website from the previous question as the top result but this time it's an XOR Cipher Calculator that we use to decode. The way this works is that we take the first string, "S1" and use the binary in the second string, "S2" as the key to "XOR" decode it. We are given the answer as our top result = 10	THM{3xclu51v3_0r}.
+
+
+====================================================================
+
 
 
 
