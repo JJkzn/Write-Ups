@@ -265,6 +265,45 @@ We extract this with the -e flag for the command : binwalk -e hell_1578018688127
 
 hello_there.txt contains the flag :)
 
+====================================================================
+
+QUESTION 15 
+
+There is something lurking in the dark.
+
+Hint: Try stegsolve.
+
+I've never came across the tool stegsolve before so I do some research and install the tool onto my machine.
+
+$ wget http://www.caesum.com/handbook/Stegsolve.jar -O stegsolve.jar
+$ chmod +x stegsolve.jar        (Make stegsolve executable)
+$ mkdir bin
+$ mv stegsolve.jar bin/
+
+
+Move the task file into the /bin directory 
+
+java -jar Stegsolve.jar    - run the tool
+
+Then open the task file via the Stegsolve GUI 
+
+Then I messed around with the tool a bit, one of the great things about this tool is that you can use the arrow buttons to cycle through a bunch of different bit planes/transformations on the image. 
+We find the answer by applying "Blue Plane 1".
+
+I will definitely be using this tool in the future whenever I can, I can imagine it will be invaluable in future CTFs.
+
+====================================================================
+
+QUESTION 16
+
+How good is your listening skill?
+
+P/S: The flag formatted as THM{Listened Flag}, the flag should be in All CAPS
+
+Another QR code task file. We decode it through QR Raptor again and we are given a link for a soundcloud post where we hear an A.I generated voice say the flag.
+
+
+
 
 
 ====================================================================
