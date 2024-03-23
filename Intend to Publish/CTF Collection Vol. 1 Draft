@@ -6,6 +6,8 @@ While I've done some CTFs in the past, like I said this is my first time providi
 
 Enough rambling! Let's begin.
 
+*NOTE - REMEMBER TO REMOVE ALL FLAGS FROM THE FINAL VERSION BEFORE SUBMITTING WRITE-UP TO TRYHACKME*
+
 ====================================================================
 
 CTF Name - CTF Collection Vol. 1 Draft
@@ -245,6 +247,23 @@ After researching "exclusive strings decode" on google we come across the websit
 
 ====================================================================
 
+QUESTION 14
+
+Please exfiltrate my file :)
+
+Hint: binwalk
+
+We download the task file, hell_1578018688127.jpg - a photo of an ominous looking tunnel. Quite the appropriate name from the looks of it!
+
+This is a great opportunity to showcase a tool I've used in previous CTFs - binwalk. As per the Kali Linux Tools page, "Binwalk is a tool for searching a given binary image for embedded files and executable code". This can be demonstrated in the results we get from running the task file through the tool:
+
+[INSERT SCREENSHOT OF BINWALK RESULTS HERE]
+
+As per the results, we see that the image has an embedded .zip archive containing the text file hello_there.txt.
+
+We extract this with the -e flag for the command : binwalk -e hell_1578018688127.jpg 
+
+hello_there.txt contains the flag :)
 
 
 
