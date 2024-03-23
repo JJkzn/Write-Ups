@@ -319,6 +319,24 @@ Sometimes when are searching for information that we can use during engagements 
 
 ====================================================================
 
+QUESTION 18
+
+Can you solve the following? By the way, I lost the key. Sorry >.<
+
+MYKAHODTQ{RVG_YVGGK_FAL_WXF}
+
+Flag format: TRYHACKME{FLAG IN ALL CAP}
+
+Hint: Find the key of vigenere cipher
+
+Using CyberChef we input the encoded data and applied the Vignere Cipher 'recipe'. As the cipher requires a key to be decoded we tried guessing a couple of keys after we were unable to find anything useful in the page source of the question. After a couple of guesses we found that "THM" is the key and we got the flag!
+
+
+
+====================================================================
+
+
+
 Question 19 
 
 Decode the following text.
@@ -335,4 +353,20 @@ This one was actually a bit tricky.
 
 So I went to a different site  - https://www.rapidtables.com/convert/number/decimal-to-hex.html - and converted the original decimal input to hexadecimal and then decoded that from hex into ascii = THM{17_ju57_4n_0rd1n4ry_b4535}
 
+
+
+====================================================================
+
+
+QUESTION 20
+
+I just hacked my neighbor's WiFi and try to capture some packet. He must be up to no good. Help me find it.
+
+Hint: Put it into stream. It will be much easier.
+
+
+Follow the tcp stream until the end - final packet contains the flag file
+
+Another way is to go to file -> export objects -> HTTP 
+Here you will also find the flag file along with packet number and hostname.
 
