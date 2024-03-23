@@ -302,8 +302,19 @@ P/S: The flag formatted as THM{Listened Flag}, the flag should be in All CAPS
 
 Another QR code task file. We decode it through QR Raptor again and we are given a link for a soundcloud post where we hear an A.I generated voice say the flag.
 
+====================================================================
+
+QUESTION 17
+
+Sometimes we need a 'machine' to dig the past
+
+Targetted website: https://www.embeddedhacker.com/
+Targetted time: 2 January 2020
 
 
+We go to the waybackmachine and insert the target website - we navigate to the 2 January 2020 snapshot, load the archived page and find the flag :)
+
+Sometimes when are searching for information that we can use during engagements we can find information on older versions of websites that may not be present on the updated versions. Definitely something to keep in mind when building profiles on targets during pen test campaigns. (Make sure to check page source of archived pages as well)
 
 
 ====================================================================
