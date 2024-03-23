@@ -31,4 +31,234 @@ go to main web page at port 80 -
 Look at source code of page - <!-- It is in the /diningRoom/ -->
 
 
+10.10.118.77/diningRoom
+
+diningroom
+
+After reaching the room, Jill and Barry started their investigation
+
+Blood stein can be found near the fireplace. Hope it is not belong to Chris.
+
+After a short investigation with barry, Jill can't find any empty shell. Maybe another room?
+
+There is an emblem on the wall, will you take it? YES
+WE FIND THIS STRING - 		<!-- SG93IGFib3V0IHRoZSAvdGVhUm9vbS8= -->
+THIS IS BASE64
+WE DECODE IT AND IT SAYS - How about the /teaRoom/
+
+
+http://10.10.118.77/diningRoom/emblem.php
+
+emblem{fec832623ea498e20bf4fe1821d58727}	(APPEARS TO BE AN MD5 HASH)
+
+Look like you can put something on the emblem slot, refresh /diningRoom/
+
+
+
+
+
+
+
+
+
+
+http://10.10.118.77/teaRoom/
+
+What the freak is this! This doesn't look like a human.
+
+The undead walk toward Jill. Without wasting much time, Jill fire at least 6 shots to kill that thing
+
+In addition, there is a body without a head laying down the floor
+
+After the investigation, the body belong to kenneth from Bravo team. What happened here?
+
+After a jiff, Barry broke into the room and found out the truth. In addition, Barry give Jill a Lockpick.
+
+Barry also suggested that Jill should visit the /artRoom/
+
+
+
+http://10.10.118.77/teaRoom/master_of_unlock.html
+
+lock_pick{037b35e2ff90916a9abf99129c8e1837}
+
+
+http://10.10.118.77/artRoom/
+
+
+
+
+http://10.10.118.77/artRoom/MansionMap.html
+
+Look like a map
+
+Location:
+/diningRoom/
+/teaRoom/
+/artRoom/
+/barRoom/
+/diningRoom2F/
+/tigerStatusRoom/
+/galleryRoom/
+/studyRoom/
+/armorRoom/
+/attic/
+
+
+
+http://10.10.118.77/barRoom/
+
+Look like the door has been locked
+
+It can be open by a lockpick 
+
+
+
+
+http://10.10.118.77/barRoom357162e3db904857963e6e0b64b96ba7/
+
+
+what a messy bar room
+
+A piano can be found in the bar room
+
+Play the piano?
+
+
+
+
+
+
+
+
+
+http://10.10.118.77/barRoom357162e3db904857963e6e0b64b96ba7/musicNote.html
+
+Look like a music note
+NV2XG2LDL5ZWQZLFOR5TGNRSMQ3TEZDFMFTDMNLGGVRGIYZWGNSGCZLDMU3GCMLGGY3TMZL5 		- THIS IS BASE32! LETS DECODE IT
+
+music_sheet{362d72deaf65f5bdc63daece6a1f676e}
+
+
+
+
+http://10.10.118.77/barRoom357162e3db904857963e6e0b64b96ba7/barRoomHidden.php
+
+There is a gold emblem embedded on the wall
+
+Will you take it? YES
+
+
+http://10.10.118.77/barRoom357162e3db904857963e6e0b64b96ba7/gold_emblem.php
+
+gold_emblem{58a8c41a9d08b8a4e38d02a4d7ff4843}
+
+Look like you can put something on the emblem slot, refresh the previous page
+
+
+WE THEN INPUT THE OTHER EMBLEM FLAG WE RECIEVED INTO THE NEWLY SHOWN FLAG INPUT PROMPT FOR barRoomHidden.php
+and get:
+
+http://10.10.118.77/barRoom357162e3db904857963e6e0b64b96ba7/emblem_slot.php
+
+rebecca
+
+
+WE THEN GO BACK TO /diningRoom/ to input the newly found gold emblem flag into that emblem slot:
+
+http://10.10.118.77/diningRoom/emblem_slot.php
+klfvg ks r wimgnd biz mpuiui ulg fiemok tqod. Xii jvmc tbkg ks tempgf tyi_hvgct_jljinf_kvc
+
+With this encoded text we look at the hint for the next question:
+Blaise de Vigenère 
+Upon further research we discover that he was a French Cryptographer.
+Using CyberChef we decode the phrase with the Vignere Cipher using the key 'rebecca'
+:
+there is a shield key inside the dining room. The html page is called the_great_shield_key
+
+http://10.10.118.77/diningRoom/the_great_shield_key.html
+
+shield_key{48a7a9227cd7eb89f0a062590798cbac}
+
+
+
+
+http://10.10.118.77/diningRoom2F/
+In page source:
+
+<!-- Lbh trg gur oyhr trz ol chfuvat gur fgnghf gb gur ybjre sybbe. Gur trz vf ba gur qvavatEbbz svefg sybbe. Ivfvg fnccuver.ugzy -->
+
+This is Caesar cipher encoded and we decode it using CyberChef with ROT13:
+You get the blue gem by pushing the status to the lower floor. The gem is on the diningRoom first floor. Visit sapphire.html
+
+
+http://10.10.118.77/diningRoom/sapphire.html
+
+blue_jewel{e1d457e96cac640f863ec7bc475d48aa} 
+
+
+http://10.10.118.77/tigerStatusRoom/
+
+You reached a small room with a tiger status
+
+Look like you can put a gem on the tiger's eye
+
+WE ENTER THE blue_jewel FLAG AND GET THE FOLLOWING:
+
+crest 1:
+S0pXRkVVS0pKQkxIVVdTWUpFM0VTUlk9
+Hint 1: Crest 1 has been encoded twice
+Hint 2: Crest 1 contanis 14 letters
+Note: You need to collect all 4 crests, combine and decode to reavel another path
+The combination should be crest 1 + crest 2 + crest 3 + crest 4. Also, the combination is a type of encoded base and you need to decode it
+
+
+BASE 64 -> BASE 32 = RlRQIHVzZXI6IG
+
+
+RlRQIHVzZXI6IGh1bnRlciwgRlRQIHBhc3M6IHlvdV9jYW50X2hpZGVfZm9yZXZlcg==
+
+http://10.10.118.77/galleryRoom/note.txt
+
+crest 2:
+GVFWK5KHK5WTGTCILE4DKY3DNN4GQQRTM5AVCTKE
+Hint 1: Crest 2 has been encoded twice
+Hint 2: Crest 2 contanis 18 letters
+Note: You need to collect all 4 crests, combine and decode to reavel another path
+The combination should be crest 1 + crest 2 + crest 3 + crest 4. Also, the combination is a type of encoded base and you need to decode it
+
+BASE 32 -> BASE 58 = h1bnRlciwgRlRQIHBh
+
+http://10.10.118.77/armorRoom/
+asks for shield flag
+
+
+crest 3:
+MDAxMTAxMTAgMDAxMTAwMTEgMDAxMDAwMDAgMDAxMTAwMTEgMDAxMTAwMTEgMDAxMDAwMDAgMDAxMTAxMDAgMDExMDAxMDAgMDAxMDAwMDAgMDAxMTAwMTEgMDAxMTAxMTAgMDAxMDAwMDAgMDAxMTAxMDAgMDAxMTEwMDEgMDAxMDAwMDAgMDAxMTAxMDAgMDAxMTEwMDAgMDAxMDAwMDAgMDAxMTAxMTAgMDExMDAwMTEgMDAxMDAwMDAgMDAxMTAxMTEgMDAxMTAxMTAgMDAxMDAwMDAgMDAxMTAxMTAgMDAxMTAxMDAgMDAxMDAwMDAgMDAxMTAxMDEgMDAxMTAxMTAgMDAxMDAwMDAgMDAxMTAwMTEgMDAxMTEwMDEgMDAxMDAwMDAgMDAxMTAxMTAgMDExMDAwMDEgMDAxMDAwMDAgMDAxMTAxMDEgMDAxMTEwMDEgMDAxMDAwMDAgMDAxMTAxMDEgMDAxMTAxMTEgMDAxMDAwMDAgMDAxMTAwMTEgMDAxMTAxMDEgMDAxMDAwMDAgMDAxMTAwMTEgMDAxMTAwMDAgMDAxMDAwMDAgMDAxMTAxMDEgMDAxMTEwMDAgMDAxMDAwMDAgMDAxMTAwMTEgMDAxMTAwMTAgMDAxMDAwMDAgMDAxMTAxMTAgMDAxMTEwMDA=
+Hint 1: Crest 3 has been encoded three times
+Hint 2: Crest 3 contanis 19 letters
+Note: You need to collect all 4 crests, combine and decode to reavel another path
+The combination should be crest 1 + crest 2 + crest 3 + crest 4. Also, the combination is a type of encoded base and you need to decode it
+
+BASE 64 -> BINARY -> HEX = c3M6IHlvdV9jYW50X2h
+
+http://10.10.118.77/attic909447f184afdfb352af8b8a25ffff1d/note.txt
+
+crest 4:
+gSUERauVpvKzRpyPpuYz66JDmRTbJubaoArM6CAQsnVwte6zF9J4GGYyun3k5qM9ma4s
+Hint 1: Crest 2 has been encoded twice
+Hint 2: Crest 2 contanis 17 characters
+Note: You need to collect all 4 crests, combine and decode to reavel another path
+The combination should be crest 1 + crest 2 + crest 3 + crest 4. Also, the combination is a type of encoded base and you need to decode it
+
+base 58 -> hex = pZGVfZm9yZXZlcg==
+
+
+WE COMBINE ALL THE DECODED CREST FLAGS TOGETHER:
+
+RlRQIHVzZXI6IGh1bnRlciwgRlRQIHBhc3M6IHlvdV9jYW50X2hpZGVfZm9yZXZlcg==
+
+WE DECODE IT WITH BASE64 AND GET FOLLOWING FTP CREDS:
+
+FTP user: hunter, FTP pass: you_cant_hide_forever
 
