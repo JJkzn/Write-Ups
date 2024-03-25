@@ -1,6 +1,7 @@
 
 
 RECON
+nmap -A -p1-3000 10.10.208.52 
 
 Nmap scan report for ip-10-10-208-52.eu-west-1.compute.internal (10.10.208.52)
 Host is up (0.00064s latency).
